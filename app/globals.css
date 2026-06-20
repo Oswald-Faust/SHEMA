@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+/* ── Design tokens — Light mode (default) ─────────────────────────────────── */
+:root {
+  --bg:           #FAF6F1;
+  --bg-2:         #F2EDE6;
+  --surface:      #FFFFFF;
+  --surface-2:    #F7F2EC;
+  --surface-soft: rgba(255, 255, 255, 0.72);
+  --surface-muted: rgba(255, 255, 255, 0.58);
+  --border:       rgba(44, 24, 16, 0.09);
+  --border-2:     rgba(44, 24, 16, 0.15);
+  --txt-primary:  #1A0E08;
+  --txt-secondary:#5C3E2E;
+  --txt-muted:    #9C7D60;
+  --accent:       #C8895A;
+  --accent-2:     #D4A853;
+  --accent-rgb:   200, 137, 90;
+  --gold-rgb:     212, 168, 83;
+  --invert-bg:    #1A0E08;
+  --invert-txt:   #FAF6F1;
+  --diag-bg:      #FAF6F1;
+  --diag-surface: rgba(255, 255, 255, 0.76);
+  --diag-surface-strong: rgba(255, 255, 255, 0.92);
+  --diag-surface-soft: rgba(242, 237, 230, 0.84);
+  --diag-border:  rgba(44, 24, 16, 0.09);
+  --diag-border-strong: rgba(44, 24, 16, 0.15);
+  --diag-text:    #1A0E08;
+  --diag-text-soft:#5C3E2E;
+  --diag-text-muted:#9C7D60;
+  --diag-pill:    rgba(26, 14, 8, 0.06);
+  --diag-pill-strong: rgba(26, 14, 8, 0.12);
+  --diag-overlay: rgba(255, 255, 255, 0.28);
+}
+
+/* ── Dark mode ──────────────────────────────────────────────────────────────── */
+.dark {
+  --bg:           #100C09;
+  --bg-2:         #171108;
+  --surface:      #1E160F;
+  --surface-2:    #261C12;
+  --surface-soft: rgba(30, 22, 15, 0.88);
+  --surface-muted: rgba(38, 28, 18, 0.76);
+  --border:       rgba(255, 255, 255, 0.07);
+  --border-2:     rgba(255, 255, 255, 0.13);
+  --txt-primary:  #F5EFE8;
+  --txt-secondary:#C4A888;
+  --txt-muted:    rgba(245, 239, 232, 0.45);
+  --accent:       #D4975E;
+  --accent-2:     #E0B85A;
+  --accent-rgb:   212, 151, 94;
+  --gold-rgb:     224, 184, 90;
+  --invert-bg:    #F5EFE8;
+  --invert-txt:   #1A0E08;
+  --diag-bg:      #0A0A0A;
+  --diag-surface: rgba(255, 255, 255, 0.04);
+  --diag-surface-strong: rgba(255, 255, 255, 0.07);
+  --diag-surface-soft: rgba(255, 255, 255, 0.05);
+  --diag-border:  rgba(255, 255, 255, 0.07);
+  --diag-border-strong: rgba(255, 255, 255, 0.12);
+  --diag-text:    #F5F0EB;
+  --diag-text-soft: rgba(245, 240, 235, 0.75);
+  --diag-text-muted: rgba(245, 240, 235, 0.5);
+  --diag-pill:    rgba(255, 255, 255, 0.05);
+  --diag-pill-strong: rgba(255, 255, 255, 0.1);
+  --diag-overlay: rgba(0, 0, 0, 0.5);
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  color: var(--txt-primary);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── Shimmer animation ──────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.shimmer-bar {
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 50%, var(--accent) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.2s infinite linear;
+}
+
+/* ── Option cards ───────────────────────────────────────────────────────────── */
+.option-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.option-card:active { transform: scale(0.985); }
+
+/* ── CTA glow pulse ─────────────────────────────────────────────────────────── */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.35); }
+  50%       { box-shadow: 0 0 0 14px rgba(var(--accent-rgb), 0); }
+}
+.btn-glow { animation: glow-pulse 2.8s infinite; }
+
+/* ── Gradient text ──────────────────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(125deg, var(--accent) 0%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Illustration canvas ────────────────────────────────────────────────────── */
+.illus-fade::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 55%;
+  background: linear-gradient(to top, var(--diag-bg), transparent);
+  pointer-events: none;
+}
+
+/* ── Result ring animation ──────────────────────────────────────────────────── */
+@keyframes ring-in {
+  from { stroke-dashoffset: 100%; }
+  to   { stroke-dashoffset: var(--ring-target); }
+}
+
+/* ── Smooth surface card ────────────────────────────────────────────────────── */
+.surface-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.surface-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(var(--accent-rgb), 0.12); }
+
+/* ── Navbar ─────────────────────────────────────────────────────────────────── */
+.navbar-glass {
+  background: rgba(var(--bg-rgb, 250, 246, 241), 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease;
+}
+.dark .navbar-glass {
+  background: rgba(16, 12, 9, 0.85);
+}
+
+/* ── Scroll fade-in utility ─────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  animation: fadeUp 0.55s ease both;
+}
+.fade-up-delay-1 { animation-delay: 0.1s; }
+.fade-up-delay-2 { animation-delay: 0.2s; }
+.fade-up-delay-3 { animation-delay: 0.3s; }
+.fade-up-delay-4 { animation-delay: 0.45s; }
