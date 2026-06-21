@@ -1,0 +1,1167 @@
+{% comment %} LA MAISON SHEMA — Diagnostic Capillaire — Landing Page Premium {% endcomment %}
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap');
+
+.sd, .sd *, .sd *::before, .sd *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.sd {
+  --ink: #2A1A12;
+  --ink-soft: #5C463A;
+  --cocoa: #1E130C;
+  --cocoa-2: #34210F;
+  --parchment: #F6EFE3;
+  --parchment-2: #FBF6EC;
+  --cream: #ECE0CD;
+  --clay: #C0673E;
+  --clay-deep: #9F5230;
+  --blush: #E6B9A4;
+  --sage: #8E9E72;
+  --sage-deep: #6E7D54;
+  --gold: #C99A52;
+  --line: rgba(42,26,18,.13);
+  --line-2: rgba(42,26,18,.06);
+  --line-light: rgba(246,239,227,.16);
+  font-family: 'Hanken Grotesk', sans-serif;
+  color: var(--ink);
+  background: var(--parchment);
+  line-height: 1.55;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+/* Grain overlay */
+.sd::after {
+  content: ''; position: fixed; inset: 0; z-index: 9000; pointer-events: none; opacity: .045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.sd ::selection { background: var(--clay); color: var(--parchment-2); }
+
+/* ── TYPOGRAPHY HELPERS ── */
+.sd-serif { font-family: 'Fraunces', serif; font-optical-sizing: auto; }
+.sd-eyebrow { display: inline-flex; align-items: center; gap: 14px; font-size: 13px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--clay-deep); margin-bottom: 26px; }
+.sd-eyebrow::before { content: ''; width: 36px; height: 1.5px; background: currentColor; opacity: .55; flex-shrink: 0; }
+.sd-eyebrow--light { color: var(--blush); }
+.sd-eyebrow--center { justify-content: center; }
+
+/* ── BUTTONS ── */
+.sd-btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 18px 40px; font-family: 'Hanken Grotesk', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; transition: all .35s cubic-bezier(.2,.7,.2,1); border: 1.5px solid transparent; text-decoration: none; border-radius: 100px; line-height: 1; }
+.sd-btn__arrow { transition: transform .35s cubic-bezier(.2,.7,.2,1); display: inline-block; }
+.sd-btn:hover .sd-btn__arrow { transform: translateX(6px); }
+.sd-btn--primary { background: var(--clay); color: var(--parchment-2); border-color: var(--clay); box-shadow: 0 12px 30px -12px rgba(159,82,48,.6); }
+.sd-btn--primary:hover { background: var(--clay-deep); border-color: var(--clay-deep); transform: translateY(-2px); }
+.sd-btn--light { background: var(--parchment-2); color: var(--ink); border-color: var(--parchment-2); }
+.sd-btn--light:hover { background: transparent; color: var(--parchment-2); transform: translateY(-2px); }
+.sd-btn--outline-dark { background: transparent; color: var(--ink); border-color: rgba(42,26,18,.3); }
+.sd-btn--outline-dark:hover { background: var(--ink); color: var(--parchment-2); border-color: var(--ink); }
+.sd-btn--ghost-light { background: transparent; color: rgba(246,239,227,.55); border-color: rgba(246,239,227,.2); }
+.sd-btn--ghost-light:hover { color: var(--parchment-2); border-color: rgba(246,239,227,.5); }
+.sd-btn--lg { padding: 22px 52px; font-size: 14px; }
+.sd-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ── SECTIONS ── */
+.sd-section { padding: clamp(80px, 9vw, 150px) clamp(28px, 6vw, 88px); position: relative; }
+.sd-section--parch { background: var(--parchment); }
+.sd-section--parch2 { background: var(--parchment-2); }
+.sd-section--cream { background: var(--cream); }
+.sd-section--dark { background: var(--cocoa); color: var(--parchment); }
+.sd-section--dark .sd-section__title { color: var(--parchment-2); }
+.sd-heading { font-family: 'Fraunces', serif; font-weight: 400; color: var(--ink); line-height: 1.08; letter-spacing: -.015em; font-size: clamp(34px, 4.6vw, 62px); }
+.sd-heading em { font-style: italic; color: var(--clay); }
+.sd-heading--light { color: var(--parchment-2); }
+.sd-heading--light em { color: var(--blush); }
+.sd-lead { font-size: 17px; font-weight: 300; color: var(--ink-soft); line-height: 1.8; max-width: 560px; }
+.sd-lead--light { color: rgba(246,239,227,.7); }
+.sd-wrap { max-width: 1180px; margin: 0 auto; }
+
+/* ── HERO ── */
+.sd-hero { display: grid; grid-template-columns: 1.08fr .92fr; align-items: center; gap: clamp(28px, 4vw, 60px); padding: clamp(32px, 4.5vw, 60px) clamp(28px, 6vw, 88px) clamp(28px, 4vw, 48px); background:
+  radial-gradient(120% 90% at 12% 6%, rgba(192,103,62,.10) 0%, transparent 45%),
+  radial-gradient(90% 80% at 95% 100%, rgba(142,158,114,.12) 0%, transparent 50%),
+  var(--parchment); position: relative; overflow: hidden; }
+.sd-hero__left { max-width: 560px; }
+.sd-hero__title { font-family: 'Fraunces', serif; font-weight: 400; font-size: clamp(40px, 5.2vw, 72px); line-height: .96; letter-spacing: -.025em; color: var(--ink); margin-bottom: 20px; }
+.sd-hero__title em { font-style: italic; color: var(--clay); font-weight: 500; }
+.sd-hero__desc { font-size: 17px; font-weight: 300; color: var(--ink-soft); line-height: 1.65; max-width: 440px; margin-bottom: 28px; }
+.sd-hero__stats { display: flex; gap: clamp(20px, 3vw, 36px); margin-bottom: 32px; }
+.sd-hero__stat { position: relative; }
+.sd-hero__stat:not(:last-child)::after { content: ''; position: absolute; right: calc(clamp(20px, 3vw, 36px) / -2); top: 6px; bottom: 6px; width: 1px; background: var(--line); }
+.sd-hero__stat-num { font-family: 'Fraunces', serif; font-size: clamp(30px, 3vw, 40px); font-weight: 400; color: var(--clay); display: block; line-height: 1; margin-bottom: 6px; }
+.sd-hero__stat-label { font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); }
+.sd-hero__right { position: relative; }
+.sd-hero__frame { position: relative; border-radius: 280px 280px 18px 18px; overflow: hidden; aspect-ratio: 4/5; max-width: 440px; margin-left: auto; box-shadow: 0 40px 72px -40px rgba(42,26,18,.5); }
+.sd-hero__img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.sd-hero__placeholder { width: 100%; height: 100%; background: linear-gradient(150deg, #E9D7C6 0%, #D9B6A2 45%, #C58E78 100%); }
+.sd-hero__seal { position: absolute; bottom: -26px; left: -26px; width: 124px; height: 124px; border-radius: 50%; background: var(--cocoa); color: var(--parchment-2); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-shadow: 0 20px 40px -16px rgba(30,19,12,.7); }
+.sd-hero__seal-num { font-family: 'Fraunces', serif; font-size: 38px; font-weight: 400; line-height: 1; color: var(--blush); }
+.sd-hero__seal-txt { font-size: 9px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; opacity: .75; margin-top: 4px; max-width: 80px; line-height: 1.3; }
+.sd-hero__arc { position: absolute; inset: 0; border-radius: 280px 280px 18px 18px; border: 1px solid rgba(192,103,62,.35); transform: translate(16px, 16px); z-index: -1; }
+
+/* reveal on load */
+.sd-reveal { opacity: 0; transform: translateY(22px); animation: sdUp .9s cubic-bezier(.2,.7,.2,1) forwards; }
+.sd-d1 { animation-delay: .05s; } .sd-d2 { animation-delay: .18s; } .sd-d3 { animation-delay: .31s; }
+.sd-d4 { animation-delay: .44s; } .sd-d5 { animation-delay: .57s; } .sd-d6 { animation-delay: .7s; }
+@keyframes sdUp { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .sd-reveal { animation: none; opacity: 1; transform: none; } }
+
+/* ── MARQUEE BAND ── */
+.sd-band { background: var(--cocoa); padding: 20px 0; overflow: hidden; border-top: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); }
+.sd-band__track { display: flex; width: max-content; animation: sdMarquee 32s linear infinite; }
+.sd-band__group { display: flex; align-items: center; }
+.sd-band:hover .sd-band__track { animation-play-state: paused; }
+.sd-band__item { display: inline-flex; align-items: center; gap: 16px; padding: 0 34px; font-size: 15px; font-weight: 400; letter-spacing: .02em; color: rgba(246,239,227,.85); white-space: nowrap; }
+.sd-band__item::before { content: '✿'; color: var(--blush); font-size: 13px; }
+@keyframes sdMarquee { to { transform: translateX(-50%); } }
+
+/* ── INTRO ── */
+.sd-intro { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(40px, 6vw, 96px); align-items: center; }
+.sd-intro__visual { position: relative; }
+.sd-intro__frame { border-radius: 18px 18px 220px 220px; overflow: hidden; aspect-ratio: 4/5; box-shadow: 0 40px 70px -36px rgba(42,26,18,.4); }
+.sd-intro__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sd-intro__placeholder { width: 100%; height: 100%; background: linear-gradient(150deg, #E4D2C0 0%, #D4AE9A 50%, #BE8A72 100%); }
+.sd-intro__badge { position: absolute; top: 26px; right: -22px; background: var(--clay); color: var(--parchment-2); padding: 18px 22px; text-align: center; border-radius: 14px; box-shadow: 0 18px 34px -16px rgba(159,82,48,.6); }
+.sd-intro__badge-num { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 400; line-height: 1; display: block; }
+.sd-intro__badge-text { font-size: 9px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; opacity: .85; margin-top: 4px; }
+.sd-intro__list { list-style: none; margin-top: 40px; }
+.sd-intro__list li { display: flex; align-items: flex-start; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 16px; font-weight: 300; color: var(--ink); line-height: 1.5; }
+.sd-intro__list li:last-child { border-bottom: none; }
+.sd-intro__check { width: 28px; height: 28px; border-radius: 50%; background: var(--sage); color: var(--parchment-2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 13px; margin-top: 1px; }
+
+/* ── STEPS ── */
+.sd-steps__head { text-align: center; max-width: 640px; margin: 0 auto clamp(56px, 6vw, 90px); }
+.sd-steps__head .sd-heading { margin-top: 6px; }
+.sd-steps__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+.sd-steps__grid::before { content: ''; position: absolute; top: 38px; left: 12.5%; right: 12.5%; height: 1px; background: repeating-linear-gradient(90deg, var(--line) 0 8px, transparent 8px 16px); }
+.sd-step { text-align: center; padding: 0 22px; }
+.sd-step__num { width: 76px; height: 76px; border-radius: 50%; background: var(--parchment); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; margin: 0 auto 28px; font-family: 'Fraunces', serif; font-size: 30px; font-weight: 400; color: var(--clay); position: relative; z-index: 1; transition: all .35s ease; }
+.sd-step:hover .sd-step__num { background: var(--clay); color: var(--parchment-2); border-color: var(--clay); transform: translateY(-4px); }
+.sd-step__title { font-family: 'Fraunces', serif; font-size: 23px; font-weight: 500; color: var(--ink); margin-bottom: 12px; }
+.sd-step__desc { font-size: 15px; font-weight: 300; color: var(--ink-soft); line-height: 1.65; }
+
+/* ── PROFILES ── */
+.sd-profiles__head { text-align: center; max-width: 680px; margin: 0 auto clamp(48px, 5vw, 72px); }
+.sd-profiles__head .sd-lead { margin: 18px auto 0; }
+.sd-profiles__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.sd-profile { padding: clamp(40px, 4vw, 56px) clamp(32px, 3.5vw, 50px); border-radius: 16px; position: relative; overflow: hidden; display: flex; flex-direction: column; color: var(--parchment); }
+.sd-profile--haute { background: linear-gradient(155deg, #34210F 0%, #1E130C 100%); }
+.sd-profile--faible { background: linear-gradient(155deg, #4A2A18 0%, #2A1810 100%); }
+.sd-profile::before { content: ''; position: absolute; top: -80px; right: -80px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(230,185,164,.16) 0%, transparent 70%); }
+.sd-profile__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 26px; position: relative; }
+.sd-profile__tag { display: inline-block; padding: 7px 16px; border: 1px solid rgba(246,239,227,.22); border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--blush); }
+.sd-profile__level { text-align: right; }
+.sd-profile__level-label { display: block; font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: rgba(246,239,227,.45); margin-bottom: 3px; }
+.sd-profile__level-value { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 400; color: var(--parchment-2); line-height: 1; }
+.sd-profile__desc { font-size: 15px; font-weight: 300; color: rgba(246,239,227,.74); line-height: 1.75; margin-bottom: 28px; position: relative; }
+.sd-profile__signs-label { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: rgba(246,239,227,.45); margin-bottom: 6px; }
+.sd-profile__signs { list-style: none; margin-bottom: 32px; }
+.sd-profile__signs li { display: flex; align-items: center; gap: 14px; padding: 12px 0; font-size: 14.5px; color: rgba(246,239,227,.86); border-bottom: 1px solid rgba(246,239,227,.08); }
+.sd-profile__signs li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--blush); flex-shrink: 0; }
+.sd-profile__footer { margin-top: auto; padding-top: 26px; border-top: 1px solid rgba(246,239,227,.12); }
+.sd-profile__bundle-label { display: block; font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: rgba(246,239,227,.45); margin-bottom: 12px; }
+.sd-profile__bundle { display: inline-flex; align-items: center; gap: 10px; padding: 13px 24px; background: rgba(192,103,62,.22); border: 1px solid rgba(230,185,164,.32); border-radius: 100px; font-size: 13px; font-weight: 600; letter-spacing: .02em; color: var(--parchment-2); }
+.sd-profile__bundle::before { content: '✦'; color: var(--blush); font-size: 12px; }
+
+/* ── WHAT YOU GET ── */
+.sd-get { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 5vw, 80px); align-items: center; }
+.sd-get__visual { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.sd-get__card { background: rgba(246,239,227,.05); border: 1px solid rgba(246,239,227,.12); padding: 30px 26px; border-radius: 14px; transition: all .35s ease; }
+.sd-get__card:hover { background: rgba(246,239,227,.08); transform: translateY(-3px); }
+.sd-get__card:first-child { grid-column: span 2; background: rgba(192,103,62,.16); border-color: rgba(192,103,62,.32); }
+.sd-get__card--wide { grid-column: span 2; display: flex; align-items: center; gap: 24px; background: rgba(142,158,114,.12); border-color: rgba(142,158,114,.3); }
+.sd-get__card--wide .sd-get__card-icon { margin-bottom: 0; font-size: 34px; }
+.sd-get__card-icon { font-size: 26px; margin-bottom: 14px; }
+.sd-get__card-title { font-family: 'Fraunces', serif; font-size: 21px; font-weight: 500; color: var(--parchment-2); margin-bottom: 8px; }
+.sd-get__card-desc { font-size: 13.5px; font-weight: 300; color: rgba(246,239,227,.6); line-height: 1.6; }
+.sd-get__list { list-style: none; margin-top: 40px; }
+.sd-get__list li { display: flex; align-items: flex-start; gap: 18px; padding: 20px 0; border-bottom: 1px solid rgba(246,239,227,.1); }
+.sd-get__list li:last-child { border-bottom: none; }
+.sd-get__check { width: 24px; height: 24px; border-radius: 50%; background: var(--sage); color: var(--parchment-2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 11px; margin-top: 2px; }
+.sd-get__list-text { font-size: 16px; font-weight: 300; color: rgba(246,239,227,.75); line-height: 1.5; }
+.sd-get__list-text strong { color: var(--parchment-2); font-weight: 600; display: block; margin-bottom: 3px; font-size: 16.5px; }
+
+/* ── TESTIMONIALS ── */
+.sd-testimonials__head { text-align: center; margin-bottom: clamp(48px, 5vw, 72px); }
+.sd-testimonials__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.sd-testimonial { background: var(--parchment-2); padding: 44px 38px; border-radius: 16px; position: relative; border: 1px solid var(--line-2); box-shadow: 0 24px 50px -32px rgba(42,26,18,.25); }
+.sd-testimonial::before { content: '\201C'; position: absolute; top: 14px; right: 28px; font-family: 'Fraunces', serif; font-size: 90px; line-height: 1; color: rgba(192,103,62,.18); }
+.sd-testimonial__stars { color: var(--clay); font-size: 14px; letter-spacing: 3px; margin-bottom: 22px; }
+.sd-testimonial__text { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 400; font-style: italic; color: var(--ink); line-height: 1.55; margin-bottom: 26px; position: relative; }
+.sd-testimonial__author { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--clay-deep); }
+.sd-testimonial__profile { font-size: 13px; font-weight: 300; color: var(--ink-soft); margin-top: 5px; }
+
+/* ── FAQ ── */
+.sd-faq { max-width: 820px; margin: 0 auto; }
+.sd-faq__head { text-align: center; margin-bottom: clamp(40px, 5vw, 64px); }
+.sd-faq__item { border-bottom: 1px solid var(--line); padding: 28px 0; cursor: pointer; }
+.sd-faq__question { display: flex; align-items: center; justify-content: space-between; gap: 24px; font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+.sd-faq__icon { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; color: var(--clay); transition: all .35s ease; }
+.sd-faq__item.open .sd-faq__icon { transform: rotate(45deg); background: var(--clay); color: var(--parchment-2); border-color: var(--clay); }
+.sd-faq__answer { font-size: 16px; font-weight: 300; color: var(--ink-soft); line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height .45s ease, padding .3s ease; }
+.sd-faq__item.open .sd-faq__answer { max-height: 340px; padding-top: 20px; }
+
+/* ── FINAL CTA ── */
+.sd-cta { text-align: center; position: relative; overflow: hidden; }
+.sd-cta::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 700px; height: 700px; background: radial-gradient(circle, rgba(192,103,62,.18) 0%, transparent 65%); pointer-events: none; }
+.sd-cta__inner { position: relative; max-width: 760px; margin: 0 auto; }
+.sd-cta__title { font-family: 'Fraunces', serif; font-size: clamp(40px, 5.5vw, 78px); font-weight: 400; color: var(--parchment-2); line-height: 1.05; margin-bottom: 24px; letter-spacing: -.02em; }
+.sd-cta__title em { font-style: italic; color: var(--blush); }
+.sd-cta__desc { font-size: 18px; font-weight: 300; color: rgba(246,239,227,.7); margin-bottom: 48px; }
+
+/* ── CAPTURE ── */
+.sd-capture-wrap { display: none; min-height: 100vh; background:
+  radial-gradient(100% 80% at 50% 0%, rgba(192,103,62,.1) 0%, transparent 50%), var(--parchment);
+  align-items: center; justify-content: center; padding: 64px 24px; }
+.sd-capture-wrap.active { display: flex; }
+.sd-capture-card { background: var(--parchment-2); padding: clamp(40px, 5vw, 64px); max-width: 540px; width: 100%; border-radius: 20px; box-shadow: 0 40px 90px -40px rgba(42,26,18,.4); border: 1px solid var(--line-2); }
+.sd-capture-card__tag { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--clay-deep); margin-bottom: 22px; }
+.sd-capture-card__tag::before { content: ''; width: 26px; height: 1.5px; background: currentColor; opacity: .55; }
+.sd-capture-card__title { font-family: 'Fraunces', serif; font-size: clamp(34px, 4vw, 44px); font-weight: 400; color: var(--ink); line-height: 1.12; margin-bottom: 14px; }
+.sd-capture-card__desc { font-size: 16px; font-weight: 300; color: var(--ink-soft); margin-bottom: 36px; line-height: 1.65; }
+.sd-field { width: 100%; padding: 17px 20px; border: 1.5px solid var(--line); font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; color: var(--ink); background: var(--parchment); margin-bottom: 14px; outline: none; transition: border-color .25s ease; border-radius: 10px; }
+.sd-field:focus { border-color: var(--clay); }
+.sd-field::placeholder { color: rgba(42,26,18,.35); }
+.sd-capture-card__note { font-size: 13px; color: var(--ink-soft); margin-top: 18px; text-align: center; font-weight: 300; }
+
+/* ── QUIZ ── */
+.sd-quiz-wrap { display: none; min-height: 100vh; background: var(--parchment); flex-direction: column; }
+.sd-quiz-wrap.active { display: flex; }
+.sd-quiz__header { padding: 20px clamp(24px, 5vw, 56px); display: flex; align-items: center; justify-content: space-between; background: rgba(246,239,227,.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line-2); position: sticky; top: 0; z-index: 20; }
+.sd-quiz__brand { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; color: var(--ink); letter-spacing: .04em; }
+.sd-quiz__step { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--clay-deep); }
+.sd-quiz__progress { height: 3px; background: var(--cream); }
+.sd-quiz__progress-fill { height: 100%; background: linear-gradient(90deg, var(--clay), var(--blush)); transition: width .6s cubic-bezier(.4,0,.2,1); }
+.sd-quiz__body { flex: 1; display: flex; align-items: center; justify-content: center; padding: clamp(56px, 7vw, 96px) 24px; }
+.sd-quiz__card { width: 100%; max-width: 720px; }
+.sd-quiz__qnum { font-size: 12px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--clay-deep); margin-bottom: 22px; display: inline-flex; align-items: center; gap: 14px; }
+.sd-quiz__qnum::before { content: ''; width: 34px; height: 1.5px; background: currentColor; opacity: .55; }
+.sd-quiz__qnum--ref { color: var(--gold); }
+.sd-quiz__ref-note { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,154,82,.1); border: 1px solid rgba(201,154,82,.32); padding: 10px 18px; font-size: 13px; color: var(--clay-deep); margin-bottom: 26px; border-radius: 100px; }
+.sd-quiz__question { font-family: 'Fraunces', serif; font-size: clamp(30px, 4.2vw, 52px); font-weight: 400; color: var(--ink); line-height: 1.12; margin-bottom: 16px; letter-spacing: -.015em; }
+.sd-quiz__subtitle { font-size: 19px; font-weight: 300; color: var(--ink-soft); line-height: 1.5; margin-bottom: 48px; }
+.sd-quiz__options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 56px; }
+.sd-opt { display: flex; align-items: center; gap: 20px; padding: 22px 26px; border: 1.5px solid var(--line); background: var(--parchment-2); cursor: pointer; transition: all .25s cubic-bezier(.2,.7,.2,1); text-align: left; width: 100%; border-radius: 14px; }
+.sd-opt:hover { border-color: rgba(192,103,62,.5); background: #fff; transform: translateX(6px); }
+.sd-opt.selected { border-color: var(--clay); background: rgba(192,103,62,.07); box-shadow: 0 10px 24px -16px rgba(159,82,48,.5); }
+.sd-opt__key { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 500; color: var(--ink-soft); flex-shrink: 0; transition: all .25s ease; font-family: 'Fraunces', serif; }
+.sd-opt.selected .sd-opt__key { background: var(--clay); border-color: var(--clay); color: var(--parchment-2); }
+.sd-opt__media { width: 88px; height: 88px; border-radius: 12px; overflow: hidden; flex-shrink: 0; background: linear-gradient(145deg, rgba(192,103,62,.08), rgba(142,158,114,.10)); border: 1px solid var(--line-2); }
+.sd-opt__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sd-opt__content { display: flex; align-items: center; gap: 18px; min-width: 0; width: 100%; }
+.sd-opt__label { font-size: 17px; font-weight: 300; color: var(--ink); line-height: 1.4; }
+.sd-opt.selected .sd-opt__label { font-weight: 400; }
+.sd-quiz__nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.sd-quiz__back { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); background: none; border: none; cursor: pointer; transition: color .2s ease; padding: 0; font-family: 'Hanken Grotesk', sans-serif; }
+.sd-quiz__back:hover { color: var(--ink); }
+
+/* ── LOADING ── */
+.sd-loading-wrap { display: none; min-height: 100vh; background:
+  radial-gradient(80% 70% at 50% 10%, rgba(192,103,62,.14) 0%, transparent 55%),
+  var(--parchment);
+  align-items: center; justify-content: center; padding: 48px 24px; }
+.sd-loading-wrap.active { display: flex; }
+.sd-loading { width: 100%; max-width: 560px; text-align: center; background: rgba(251,246,236,.82); border: 1px solid var(--line-2); box-shadow: 0 40px 90px -40px rgba(42,26,18,.28); backdrop-filter: blur(12px); border-radius: 24px; padding: clamp(36px, 5vw, 56px); }
+.sd-loading__spinner { width: 76px; height: 76px; margin: 0 auto 28px; border-radius: 50%; border: 3px solid rgba(192,103,62,.16); border-top-color: var(--clay); border-right-color: var(--clay-deep); animation: sdSpin 1s linear infinite; }
+.sd-loading__title { font-family: 'Fraunces', serif; font-size: clamp(34px, 4.6vw, 48px); font-weight: 400; color: var(--ink); line-height: 1.08; margin-bottom: 12px; }
+.sd-loading__desc { font-size: 17px; font-weight: 300; color: var(--ink-soft); line-height: 1.7; max-width: 420px; margin: 0 auto 28px; }
+.sd-loading__steps { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.sd-loading__pill { display: inline-flex; align-items: center; padding: 10px 16px; border-radius: 999px; background: rgba(192,103,62,.08); border: 1px solid rgba(192,103,62,.18); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--clay-deep); }
+@keyframes sdSpin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .sd-loading__spinner { animation: none; } }
+
+/* ── RESULTS ── */
+.sd-results-wrap { display: none; }
+.sd-results-wrap.active { display: block; }
+.sd-results__hero { min-height: 62vh; background:
+  radial-gradient(80% 60% at 50% 100%, rgba(192,103,62,.22) 0%, transparent 60%), var(--cocoa);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: clamp(80px, 9vw, 120px) 32px; position: relative; overflow: hidden; }
+.sd-results__tag { display: inline-flex; align-items: center; gap: 12px; font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--blush); margin-bottom: 26px; }
+.sd-results__tag::before, .sd-results__tag::after { content: ''; width: 26px; height: 1.5px; background: currentColor; opacity: .55; }
+.sd-results__title { font-family: 'Fraunces', serif; font-size: clamp(44px, 6.5vw, 88px); font-weight: 400; color: var(--parchment-2); margin-bottom: 10px; line-height: 1; letter-spacing: -.02em; }
+.sd-results__subtitle { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 300; font-style: italic; color: var(--blush); margin-bottom: 44px; }
+.sd-results__meta { display: inline-flex; align-items: center; gap: 16px; padding: 16px 32px; background: rgba(246,239,227,.06); border: 1px solid rgba(246,239,227,.16); border-radius: 100px; backdrop-filter: blur(8px); }
+.sd-results__meta-label { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: rgba(246,239,227,.55); }
+.sd-results__meta-val { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 400; color: var(--blush); line-height: 1; }
+.sd-results__body { max-width: 880px; margin: 0 auto; padding: clamp(64px, 8vw, 100px) 24px; }
+.sd-results__section { margin-bottom: 60px; padding-bottom: 60px; border-bottom: 1px solid var(--line); }
+.sd-results__section:last-child { border-bottom: none; }
+.sd-results__section-title { font-family: 'Fraunces', serif; font-size: clamp(28px, 3.2vw, 38px); font-weight: 400; color: var(--ink); margin-bottom: 24px; letter-spacing: -.01em; }
+.sd-results__desc { font-size: 17px; font-weight: 300; color: var(--ink-soft); line-height: 1.85; white-space: pre-line; }
+.sd-concerns { display: flex; flex-wrap: wrap; gap: 10px; }
+.sd-concern-pill { padding: 9px 22px; background: rgba(142,158,114,.14); border: 1px solid rgba(142,158,114,.4); font-size: 13px; font-weight: 600; color: var(--sage-deep); letter-spacing: .02em; border-radius: 100px; }
+.sd-tips { list-style: none; counter-reset: tips; }
+.sd-tips li { counter-increment: tips; display: flex; gap: 22px; align-items: flex-start; padding: 22px 0; border-bottom: 1px solid var(--line-2); font-size: 16px; font-weight: 300; color: var(--ink); line-height: 1.7; }
+.sd-tips li:last-child { border-bottom: none; }
+.sd-tips li::before { content: counter(tips, decimal-leading-zero); font-family: 'Fraunces', serif; font-size: 24px; font-weight: 400; color: var(--clay); flex-shrink: 0; min-width: 34px; line-height: 1.2; }
+.sd-bundle-card { background: linear-gradient(150deg, var(--cocoa-2) 0%, var(--cocoa) 100%); padding: clamp(36px, 4vw, 52px); border-radius: 18px; margin-bottom: 48px; position: relative; overflow: hidden; }
+.sd-bundle-card::before { content: ''; position: absolute; top: -70px; right: -70px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(230,185,164,.14) 0%, transparent 70%); }
+.sd-bundle-card__tag { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--blush); margin-bottom: 16px; position: relative; }
+.sd-bundle-card__name { font-family: 'Fraunces', serif; font-size: clamp(32px, 4vw, 44px); font-weight: 400; color: var(--parchment-2); margin-bottom: 16px; line-height: 1.05; position: relative; }
+.sd-bundle-card__products { font-size: 15px; font-weight: 300; color: rgba(246,239,227,.68); line-height: 1.7; margin-bottom: 32px; position: relative; }
+.sd-locked { background: var(--cream); border: 1px solid var(--line); padding: clamp(32px, 4vw, 48px); border-radius: 18px; margin-bottom: 48px; }
+.sd-locked__title { display: flex; align-items: center; gap: 12px; font-family: 'Fraunces', serif; font-size: 26px; font-weight: 400; color: var(--ink); margin-bottom: 6px; }
+.sd-locked__sub { font-size: 14px; color: var(--ink-soft); margin-bottom: 28px; }
+.sd-locked__items { list-style: none; margin-bottom: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 28px; }
+.sd-locked__items li { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line-2); font-size: 14px; color: var(--ink-soft); }
+.sd-locked__items li::before { content: '🔒'; font-size: 12px; filter: grayscale(.3); }
+.sd-reassort { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px; }
+.sd-reassort__item { background: var(--parchment-2); border: 1px solid var(--line-2); padding: 26px 18px; text-align: center; border-radius: 14px; transition: transform .3s ease; }
+.sd-reassort__item:hover { transform: translateY(-3px); }
+.sd-reassort__dur { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 400; color: var(--clay); line-height: 1; }
+.sd-reassort__unit { font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); margin: 6px 0; }
+.sd-reassort__prod { font-size: 14px; color: var(--ink); font-weight: 500; }
+.sd-results__cta { background:
+  radial-gradient(80% 80% at 50% 0%, rgba(192,103,62,.18) 0%, transparent 60%), var(--cocoa);
+  padding: clamp(72px, 8vw, 100px) 40px; text-align: center; }
+.sd-results__cta-title { font-family: 'Fraunces', serif; font-size: clamp(32px, 4.4vw, 56px); font-weight: 400; color: var(--parchment-2); margin-bottom: 16px; line-height: 1.08; }
+.sd-results__cta-desc { font-size: 16px; font-weight: 300; color: rgba(246,239,227,.65); margin-bottom: 40px; }
+.sd-results__cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 980px) {
+  .sd-hero { grid-template-columns: 1fr; gap: 32px; padding-top: 28px; padding-bottom: 20px; }
+  .sd-hero__right { max-width: 460px; margin: 0 auto; width: 100%; }
+  .sd-intro { grid-template-columns: 1fr; gap: 48px; }
+  .sd-intro__visual { max-width: 440px; margin: 0 auto; width: 100%; }
+  .sd-steps__grid { grid-template-columns: 1fr 1fr; gap: 48px 24px; }
+  .sd-steps__grid::before { display: none; }
+  .sd-profiles__grid { grid-template-columns: 1fr; }
+  .sd-get { grid-template-columns: 1fr; gap: 48px; }
+  .sd-get__visual { display: none; }
+  .sd-testimonials__grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
+  .sd-locked__items { grid-template-columns: 1fr; }
+  .sd-reassort { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .sd-steps__grid { grid-template-columns: 1fr; }
+  .sd-hero { gap: 26px; padding: 24px 20px 16px; }
+  .sd-hero__stats { gap: 20px; }
+  .sd-hero__title { font-size: clamp(34px, 11vw, 48px); }
+  .sd-hero__desc { font-size: 16px; margin-bottom: 24px; }
+  .sd-hero__stats { margin-bottom: 24px; }
+  .sd-hero__frame { max-width: 320px; }
+  .sd-opt { padding: 18px; }
+  .sd-opt__content { gap: 14px; }
+  .sd-opt__media { width: 72px; height: 72px; }
+  .sd-profile { padding: 38px 26px; }
+  .sd-profile__level-value { font-size: 34px; }
+  .sd-band__item { padding: 0 22px; font-size: 14px; }
+  .sd-quiz__header { padding: 16px 22px; }
+  .sd-quiz__nav { flex-direction: column-reverse; align-items: stretch; }
+  .sd-quiz__nav .sd-btn { width: 100%; }
+  .sd-quiz__back { justify-content: center; padding: 12px; }
+  .sd-results__cta-btns .sd-btn { width: 100%; }
+}
+</style>
+
+{% assign s = section.settings %}
+
+<div class="sd" id="sd-root">
+
+  <!-- ══ LANDING ══ -->
+  <div id="sd-landing">
+
+    <!-- HERO -->
+    <section class="sd-hero">
+      <div class="sd-hero__left">
+        <span class="sd-eyebrow sd-reveal sd-d1">{{ s.hero_tag }}</span>
+        <h1 class="sd-hero__title sd-reveal sd-d2">
+          {{ s.hero_title_line1 }}<br>
+          <em>{{ s.hero_title_line2 }}</em> {{ s.hero_title_line3 }}
+        </h1>
+        <p class="sd-hero__desc sd-reveal sd-d3">{{ s.hero_desc }}</p>
+        <div class="sd-hero__stats sd-reveal sd-d4">
+          <div class="sd-hero__stat">
+            <span class="sd-hero__stat-num">{{ s.hero_stat1_num }}</span>
+            <span class="sd-hero__stat-label">{{ s.hero_stat1_label }}</span>
+          </div>
+          <div class="sd-hero__stat">
+            <span class="sd-hero__stat-num">{{ s.hero_stat2_num }}</span>
+            <span class="sd-hero__stat-label">{{ s.hero_stat2_label }}</span>
+          </div>
+          <div class="sd-hero__stat">
+            <span class="sd-hero__stat-num">{{ s.hero_stat3_num }}</span>
+            <span class="sd-hero__stat-label">{{ s.hero_stat3_label }}</span>
+          </div>
+        </div>
+        <button type="button" class="sd-btn sd-btn--primary sd-btn--lg sd-reveal sd-d5" id="sd-hero-cta">
+          {{ s.hero_cta }} <span class="sd-btn__arrow">→</span>
+        </button>
+      </div>
+      <div class="sd-hero__right sd-reveal sd-d3">
+        <div class="sd-hero__arc"></div>
+        <div class="sd-hero__frame">
+          {% if s.hero_image %}
+            {{ s.hero_image | image_url: width: 1200 | image_tag: class: 'sd-hero__img', loading: 'eager', alt: 'Diagnostic capillaire Shema' }}
+          {% else %}
+            <div class="sd-hero__placeholder"></div>
+          {% endif %}
+        </div>
+        <div class="sd-hero__seal">
+          <span class="sd-hero__seal-num">{{ s.intro_badge_num | default: '4' }}</span>
+          <span class="sd-hero__seal-txt">{{ s.intro_badge_text | default: 'profils capillaires' }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAND -->
+    <div class="sd-band">
+      <div class="sd-band__track">
+        <div class="sd-band__group">
+          <span class="sd-band__item">Résultats personnalisés</span>
+          <span class="sd-band__item">Routine adaptée à votre profil</span>
+          <span class="sd-band__item">Produits sélectionnés pour vous</span>
+          <span class="sd-band__item">Résultats visibles en 4 à 5 semaines</span>
+        </div>
+        <div class="sd-band__group" aria-hidden="true">
+          <span class="sd-band__item">Résultats personnalisés</span>
+          <span class="sd-band__item">Routine adaptée à votre profil</span>
+          <span class="sd-band__item">Produits sélectionnés pour vous</span>
+          <span class="sd-band__item">Résultats visibles en 4 à 5 semaines</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTRO -->
+    <section class="sd-section sd-section--parch">
+      <div class="sd-wrap">
+        <div class="sd-intro">
+          <div class="sd-intro__visual">
+            <div class="sd-intro__frame">
+              {% if s.intro_image %}
+                {{ s.intro_image | image_url: width: 900 | image_tag: class: 'sd-intro__img', loading: 'lazy', alt: 'Soin capillaire Shema' }}
+              {% else %}
+                <div class="sd-intro__placeholder"></div>
+              {% endif %}
+            </div>
+            <div class="sd-intro__badge">
+              <span class="sd-intro__badge-num">{{ s.intro_badge_num }}</span>
+              <span class="sd-intro__badge-text">{{ s.intro_badge_text }}</span>
+            </div>
+          </div>
+          <div class="sd-intro__content">
+            <span class="sd-eyebrow">{{ s.intro_label }}</span>
+            <h2 class="sd-heading">{{ s.intro_title }}</h2>
+            <p class="sd-lead" style="margin-top:24px;">{{ s.intro_desc }}</p>
+            <ul class="sd-intro__list">
+              <li><span class="sd-intro__check">✓</span>Identifiez votre type de porosité capillaire</li>
+              <li><span class="sd-intro__check">✓</span>Comprenez pourquoi vos soins actuels ne fonctionnent pas</li>
+              <li><span class="sd-intro__check">✓</span>Recevez une routine adaptée à votre profil exact</li>
+              <li><span class="sd-intro__check">✓</span>Découvrez les produits qui correspondent vraiment à vos cheveux</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEPS -->
+    <section class="sd-section sd-section--parch2">
+      <div class="sd-wrap">
+        <div class="sd-steps__head">
+          <span class="sd-eyebrow sd-eyebrow--center">{{ s.steps_label }}</span>
+          <h2 class="sd-heading">{{ s.steps_title }}</h2>
+        </div>
+        <div class="sd-steps__grid">
+          <div class="sd-step"><div class="sd-step__num">01</div><h3 class="sd-step__title">{{ s.step1_title }}</h3><p class="sd-step__desc">{{ s.step1_desc }}</p></div>
+          <div class="sd-step"><div class="sd-step__num">02</div><h3 class="sd-step__title">{{ s.step2_title }}</h3><p class="sd-step__desc">{{ s.step2_desc }}</p></div>
+          <div class="sd-step"><div class="sd-step__num">03</div><h3 class="sd-step__title">{{ s.step3_title }}</h3><p class="sd-step__desc">{{ s.step3_desc }}</p></div>
+          <div class="sd-step"><div class="sd-step__num">04</div><h3 class="sd-step__title">{{ s.step4_title }}</h3><p class="sd-step__desc">{{ s.step4_desc }}</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFILES -->
+    <section class="sd-section sd-section--cream">
+      <div class="sd-wrap">
+        <div class="sd-profiles__head">
+          <span class="sd-eyebrow sd-eyebrow--center">Les profils capillaires</span>
+          <h2 class="sd-heading">Quel est <em>votre profil ?</em></h2>
+          <p class="sd-lead">Deux grandes familles de porosité, chacune avec ses spécificités et sa routine adaptée.</p>
+        </div>
+        <div class="sd-profiles__grid">
+          <div class="sd-profile sd-profile--haute">
+            <div class="sd-profile__top">
+              <span class="sd-profile__tag">Profil 1 &amp; 2</span>
+              <div class="sd-profile__level">
+                <span class="sd-profile__level-label">Porosité</span>
+                <span class="sd-profile__level-value">Élevée</span>
+              </div>
+            </div>
+            <p class="sd-profile__desc">Les écailles de vos cheveux sont trop ouvertes. Les produits entrent facilement mais ne restent pas. Résultat : des cheveux secs, ternes et cassants malgré les soins.</p>
+            <div class="sd-profile__signs-label">Signes caractéristiques</div>
+            <ul class="sd-profile__signs">
+              <li>Cheveux qui sèchent très vite après lavage</li>
+              <li>L'hydratation ne dure pas plus d'un jour</li>
+              <li>Cheveux qui gonflent par temps humide</li>
+              <li>Texture rugueuse au toucher</li>
+            </ul>
+            <div class="sd-profile__footer">
+              <span class="sd-profile__bundle-label">Routine recommandée</span>
+              <span class="sd-profile__bundle">Routine Hydratation Intense</span>
+            </div>
+          </div>
+          <div class="sd-profile sd-profile--faible">
+            <div class="sd-profile__top">
+              <span class="sd-profile__tag">Profil 3 &amp; 4</span>
+              <div class="sd-profile__level">
+                <span class="sd-profile__level-label">Porosité</span>
+                <span class="sd-profile__level-value">Faible</span>
+              </div>
+            </div>
+            <p class="sd-profile__desc">Les écailles de vos cheveux sont fermées. Les produits ont du mal à pénétrer. Résultat : des cheveux sans vie, avec des résidus qui s'accumulent.</p>
+            <div class="sd-profile__signs-label">Signes caractéristiques</div>
+            <ul class="sd-profile__signs">
+              <li>Cheveux qui mettent longtemps à sécher</li>
+              <li>Les produits restent en surface</li>
+              <li>Accumulation de résidus fréquente</li>
+              <li>Cheveux doux et lisses au toucher</li>
+            </ul>
+            <div class="sd-profile__footer">
+              <span class="sd-profile__bundle-label">Routine recommandée</span>
+              <span class="sd-profile__bundle">Routine Pénétration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU GET -->
+    <section class="sd-section sd-section--dark">
+      <div class="sd-wrap">
+        <div class="sd-get">
+          <div class="sd-get__visual">
+            <div class="sd-get__card"><div class="sd-get__card-icon">🌿</div><div class="sd-get__card-title">Votre profil complet</div><div class="sd-get__card-desc">Score de porosité, fiabilité, texture détectée et problématiques identifiées.</div></div>
+            <div class="sd-get__card"><div class="sd-get__card-icon">📋</div><div class="sd-get__card-title">Recommandations</div><div class="sd-get__card-desc">Les gestes essentiels adaptés à votre profil capillaire.</div></div>
+            <div class="sd-get__card"><div class="sd-get__card-icon">📅</div><div class="sd-get__card-title">Calendrier basique</div><div class="sd-get__card-desc">Fréquences de lavage et d'hydratation selon votre porosité.</div></div>
+            <div class="sd-get__card sd-get__card--wide"><div class="sd-get__card-icon">🛍️</div><div><div class="sd-get__card-title">Bundle personnalisé</div><div class="sd-get__card-desc">Les produits SHEMA sélectionnés spécifiquement pour votre profil de porosité exact, prêts à transformer votre routine.</div></div></div>
+          </div>
+          <div>
+            <span class="sd-eyebrow">Ce que vous obtenez</span>
+            <h2 class="sd-heading sd-heading--light">Des résultats <em>concrets et mesurables</em></h2>
+            <p class="sd-lead sd-lead--light" style="margin-top:24px;">À la fin du diagnostic, vous recevez un profil capillaire complet avec tout ce dont vous avez besoin pour transformer vos cheveux.</p>
+            <ul class="sd-get__list">
+              <li><span class="sd-get__check">✓</span><span class="sd-get__list-text"><strong>Profil de porosité détaillé</strong>Score capillaire + indice de fiabilité de votre résultat</span></li>
+              <li><span class="sd-get__check">✓</span><span class="sd-get__list-text"><strong>Recommandations personnalisées</strong>Les gestes essentiels adaptés à votre profil, gratuits</span></li>
+              <li><span class="sd-get__check">✓</span><span class="sd-get__list-text"><strong>Calendrier de routine basique</strong>Fréquences de lavage et d'hydratation selon votre porosité</span></li>
+              <li><span class="sd-get__check">✓</span><span class="sd-get__list-text"><strong>Bundle produits adapté</strong>Sélection de produits SHEMA correspondant à votre profil</span></li>
+              <li><span class="sd-get__check">✓</span><span class="sd-get__list-text"><strong>Routine complète débloquée après achat</strong>Étapes détaillées, fréquences exactes, durées de pose</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="sd-section sd-section--parch">
+      <div class="sd-wrap">
+        <div class="sd-testimonials__head">
+          <span class="sd-eyebrow sd-eyebrow--center">{{ s.testimonials_label }}</span>
+          <h2 class="sd-heading">{{ s.testimonials_title }}</h2>
+        </div>
+        <div class="sd-testimonials__grid">
+          <div class="sd-testimonial"><div class="sd-testimonial__stars">★★★★★</div><p class="sd-testimonial__text">{{ s.t1_text }}</p><div class="sd-testimonial__author">{{ s.t1_author }}</div><div class="sd-testimonial__profile">{{ s.t1_profile }}</div></div>
+          <div class="sd-testimonial"><div class="sd-testimonial__stars">★★★★★</div><p class="sd-testimonial__text">{{ s.t2_text }}</p><div class="sd-testimonial__author">{{ s.t2_author }}</div><div class="sd-testimonial__profile">{{ s.t2_profile }}</div></div>
+          <div class="sd-testimonial"><div class="sd-testimonial__stars">★★★★★</div><p class="sd-testimonial__text">{{ s.t3_text }}</p><div class="sd-testimonial__author">{{ s.t3_author }}</div><div class="sd-testimonial__profile">{{ s.t3_profile }}</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="sd-section sd-section--parch2">
+      <div class="sd-faq">
+        <div class="sd-faq__head">
+          <span class="sd-eyebrow sd-eyebrow--center">{{ s.faq_label }}</span>
+          <h2 class="sd-heading">{{ s.faq_title }}</h2>
+        </div>
+        <div class="sd-faq__item" onclick="this.classList.toggle('open')">
+          <div class="sd-faq__question">{{ s.faq1_q }}<span class="sd-faq__icon">+</span></div>
+          <div class="sd-faq__answer">{{ s.faq1_a }}</div>
+        </div>
+        <div class="sd-faq__item" onclick="this.classList.toggle('open')">
+          <div class="sd-faq__question">{{ s.faq2_q }}<span class="sd-faq__icon">+</span></div>
+          <div class="sd-faq__answer">{{ s.faq2_a }}</div>
+        </div>
+        <div class="sd-faq__item" onclick="this.classList.toggle('open')">
+          <div class="sd-faq__question">{{ s.faq3_q }}<span class="sd-faq__icon">+</span></div>
+          <div class="sd-faq__answer">{{ s.faq3_a }}</div>
+        </div>
+        <div class="sd-faq__item" onclick="this.classList.toggle('open')">
+          <div class="sd-faq__question">{{ s.faq4_q }}<span class="sd-faq__icon">+</span></div>
+          <div class="sd-faq__answer">{{ s.faq4_a }}</div>
+        </div>
+        <div class="sd-faq__item" onclick="this.classList.toggle('open')">
+          <div class="sd-faq__question">{{ s.faq5_q }}<span class="sd-faq__icon">+</span></div>
+          <div class="sd-faq__answer">{{ s.faq5_a }}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="sd-section sd-section--dark sd-cta">
+      <div class="sd-cta__inner">
+        <h2 class="sd-cta__title">{{ s.cta_title }}</h2>
+        <p class="sd-cta__desc">{{ s.cta_desc }}</p>
+        <button type="button" class="sd-btn sd-btn--light sd-btn--lg" id="sd-cta-bottom">
+          {{ s.cta_btn }} <span class="sd-btn__arrow">→</span>
+        </button>
+      </div>
+    </section>
+
+  </div><!-- /sd-landing -->
+
+
+  <!-- ══ CAPTURE ══ -->
+  <div class="sd-capture-wrap" id="sd-capture">
+    <div class="sd-capture-card">
+      <div class="sd-capture-card__tag">Étape 0 — Informations</div>
+      <h2 class="sd-capture-card__title">Avant de commencer</h2>
+      <p class="sd-capture-card__desc">Renseignez votre prénom et votre email. Vos résultats vous seront envoyés à la fin du diagnostic.</p>
+      <input class="sd-field" type="text" id="sd-firstname" placeholder="Votre prénom *">
+      <input class="sd-field" type="email" id="sd-email" placeholder="Votre adresse email *">
+      <button type="button" class="sd-btn sd-btn--primary" style="width:100%;margin-top:8px;" id="sd-capture-next">
+        Commencer les questions <span class="sd-btn__arrow">→</span>
+      </button>
+      <p class="sd-capture-card__note">🔒 Vos données sont confidentielles et ne seront jamais partagées.</p>
+    </div>
+  </div>
+
+
+  <!-- ══ QUIZ ══ -->
+  <div class="sd-quiz-wrap" id="sd-quiz">
+    <div class="sd-quiz__header">
+      <span class="sd-quiz__brand">La Maison Shema</span>
+      <span class="sd-quiz__step" id="sd-step-label">Question 1 / 10+</span>
+    </div>
+    <div class="sd-quiz__progress">
+      <div class="sd-quiz__progress-fill" id="sd-progress" style="width:0%"></div>
+    </div>
+    <div class="sd-quiz__body">
+      <div class="sd-quiz__card" id="sd-qcard"></div>
+    </div>
+  </div>
+
+  <div class="sd-loading-wrap" id="sd-loading">
+    <div class="sd-loading">
+      <div class="sd-loading__spinner" aria-hidden="true"></div>
+      <h2 class="sd-loading__title">Analyse de votre profil capillaire</h2>
+      <p class="sd-loading__desc">Nous comparons vos réponses pour identifier votre profil et préparer votre routine adaptée.</p>
+      <div class="sd-loading__steps" aria-hidden="true">
+        <span class="sd-loading__pill">Texture</span>
+        <span class="sd-loading__pill">Porosité</span>
+        <span class="sd-loading__pill">Routine</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ RESULTS ══ -->
+  <div class="sd-results-wrap" id="sd-results">
+    <div class="sd-results__hero">
+      <div class="sd-results__tag">Votre profil capillaire</div>
+      <h2 class="sd-results__title" id="r-title"></h2>
+      <p class="sd-results__subtitle" id="r-subtitle"></p>
+      <div class="sd-results__meta">
+        <span class="sd-results__meta-label">Texture détectée</span>
+        <span class="sd-results__meta-val" id="r-texture"></span>
+      </div>
+    </div>
+    <div class="sd-results__body">
+      <div class="sd-results__section" id="r-concerns-section" style="display:none;">
+        <h3 class="sd-results__section-title">Vos problématiques</h3>
+        <div class="sd-concerns" id="r-concerns"></div>
+      </div>
+      <div class="sd-results__section">
+        <h3 class="sd-results__section-title">Votre profil capillaire</h3>
+        <p class="sd-results__desc" id="r-desc"></p>
+      </div>
+      <div class="sd-results__section">
+        <h3 class="sd-results__section-title">Recommandations basiques</h3>
+        <ol class="sd-tips" id="r-tips"></ol>
+      </div>
+      <div class="sd-results__section">
+        <h3 class="sd-results__section-title">Calendrier basique</h3>
+        <p class="sd-results__desc" id="r-schedule"></p>
+      </div>
+      <div class="sd-bundle-card">
+        <div class="sd-bundle-card__tag">Bundle recommandé</div>
+        <div class="sd-bundle-card__name" id="r-bundle-name"></div>
+        <div class="sd-bundle-card__products" id="r-bundle-products"></div>
+        <button type="button" class="sd-btn sd-btn--light" id="r-bundle-btn">Voir mes recommandations produits <span class="sd-btn__arrow">→</span></button>
+      </div>
+      <div class="sd-locked">
+        <div class="sd-locked__title">🔒 Contenu Premium</div>
+        <div class="sd-locked__sub">Débloqué après achat du bundle recommandé</div>
+        <ul class="sd-locked__items">
+          <li>Routine détaillée (étapes + fréquences + quantités)</li>
+          <li>Calendrier détaillé avec tous les produits</li>
+          <li>Produits précis avec fréquences exactes</li>
+          <li>Durées de pose</li>
+          <li>Ordre des étapes</li>
+          <li>Ajustements selon variables secondaires</li>
+          <li>Suivi évolution capillaire</li>
+        </ul>
+        <button type="button" class="sd-btn sd-btn--outline-dark">Débloquer ma routine complète <span class="sd-btn__arrow">→</span></button>
+      </div>
+      <div class="sd-results__section">
+        <h3 class="sd-results__section-title">Réassort intelligent</h3>
+        <p class="sd-results__desc" style="margin-bottom:24px;">Durées estimées d'utilisation pour anticiper votre réassort :</p>
+        <div class="sd-reassort">
+          <div class="sd-reassort__item"><div class="sd-reassort__dur">4</div><div class="sd-reassort__unit">semaines</div><div class="sd-reassort__prod">Shampoing</div></div>
+          <div class="sd-reassort__item"><div class="sd-reassort__dur">4</div><div class="sd-reassort__unit">semaines</div><div class="sd-reassort__prod">Masque</div></div>
+          <div class="sd-reassort__item"><div class="sd-reassort__dur">2</div><div class="sd-reassort__unit">semaines</div><div class="sd-reassort__prod">Spray</div></div>
+          <div class="sd-reassort__item"><div class="sd-reassort__dur">3</div><div class="sd-reassort__unit">semaines</div><div class="sd-reassort__prod">Leave-in</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="sd-results__cta">
+      <h3 class="sd-results__cta-title">Prête à transformer vos cheveux ?</h3>
+      <p class="sd-results__cta-desc">Obtenez votre routine complète et commencez votre transformation dès aujourd'hui.</p>
+      <div class="sd-results__cta-btns">
+        <button type="button" class="sd-btn sd-btn--light" id="r-cta-routine">Voir mes recommandations produits <span class="sd-btn__arrow">→</span></button>
+        <button type="button" class="sd-btn sd-btn--outline-dark" id="r-cta-account">Accéder à mon compte</button>
+        <button type="button" class="sd-btn sd-btn--primary" id="r-cta-coaching">Réserver une séance coaching</button>
+        <button type="button" class="sd-btn sd-btn--ghost-light" id="r-restart">Recommencer le diagnostic</button>
+      </div>
+    </div>
+  </div><!-- /sd-results -->
+
+</div><!-- /sd-root -->
+
+
+<script>
+(function(){
+'use strict';
+
+var BUNDLE_URL = {{ s.bundle_url | default: '' | json }};
+var COACHING_URL = {{ s.coaching_url | default: '' | json }};
+var ACCOUNT_URL = 'https://shopify.com/95330024010/account';
+var CREATE_CUSTOMER_API_URL = 'https://maisonshema.myshopify.com/apps/shema-diagnostic/api/create-customer';
+var TEXTURE_IMAGES = {
+  A: {% if s.q10_bouclee_image %}{{ s.q10_bouclee_image | image_url: width: 400 | json }}{% else %}null{% endif %},
+  B: {% if s.q10_frisee_image %}{{ s.q10_frisee_image | image_url: width: 400 | json }}{% else %}null{% endif %},
+  C: {% if s.q10_crepue_image %}{{ s.q10_crepue_image | image_url: width: 400 | json }}{% else %}null{% endif %},
+  D: {% if s.q10_lisse_image %}{{ s.q10_lisse_image | image_url: width: 400 | json }}{% else %}null{% endif %}
+};
+
+var W={hair_type:0,water_absorption:.25,drying_speed:.20,moisture_retention:.20,product_absorption:.15,buildup:.10,humidity:.10,texture:.05,elasticity:.05};
+var SF=50;
+
+var B1=[
+  {id:'Q10',v:'hair_type',t:'Choisir son type de cheveux...',sub:'Quelle est ta texture capillaire ?',o:[{k:'A',l:'Bouclée',s:0,img:TEXTURE_IMAGES.A},{k:'B',l:'Frisée',s:0,img:TEXTURE_IMAGES.B},{k:'C',l:'Crépue',s:0,img:TEXTURE_IMAGES.C},{k:'D',l:'Lisse',s:0,img:TEXTURE_IMAGES.D}]},
+  {id:'Q1',v:'water_absorption',t:'Quand tu mouilles tes cheveux…',o:[{k:'A',l:"Ils absorbent l'eau immédiatement",s:2},{k:'B',l:"L'eau met quelques secondes",s:0},{k:'C',l:"L'eau reste en surface / perle",s:-2}]},
+  {id:'Q2',v:'drying_speed',t:'Après lavage, sans aucun produit…',o:[{k:'A',l:"Sèchent très vite",s:2},{k:'B',l:'Sèchent en quelques heures',s:0},{k:'C',l:'Mettent très longtemps à sécher',s:-2}]},
+  {id:'Q3',v:'moisture_retention',t:'Après avoir hydraté tes cheveux…',o:[{k:'A',l:'Restent hydratés plusieurs jours',s:2},{k:'B',l:'Restent hydratés environ 1 jour',s:0},{k:'C',l:'Deviennent secs très rapidement',s:-2}]},
+  {id:'Q4',v:'product_absorption',t:'Quand tu appliques un produit sur tes cheveux…',o:[{k:'A',l:'Il est absorbé rapidement',s:2},{k:'B',l:'Il reste légèrement en surface',s:0},{k:'C',l:'Il reste en surface / laisse des résidus',s:-2}]},
+  {id:'Q5',v:'buildup',t:'Après plusieurs applications de produits…',o:[{k:'A',l:'Mes cheveux restent légers',s:2},{k:'B',l:'Deviennent un peu lourds',s:0},{k:'C',l:'Deviennent gras ou collants',s:-2}]},
+  {id:'Q6',v:'humidity',t:'Par temps humide ou sous la pluie…',o:[{k:'A',l:'Mes cheveux gonflent rapidement',s:2},{k:'B',l:'Peu de changement visible',s:0},{k:'C',l:'Restent inchangés / rigides',s:-2}]},
+  {id:'Q7',v:'texture',t:'En passant les doigts sur tes cheveux secs…',o:[{k:'A',l:'Rugueux / rêches',s:2},{k:'B',l:'Normaux',s:0},{k:'C',l:'Doux / lisses',s:-2}]},
+  {id:'Q8',v:'elasticity',t:'Quand tu etires ton cheveux',sub:'Prends un cheveu entre tes doigts et tire doucement',o:[{k:'A',l:'Il casse immédiatement',s:2},{k:'B',l:"Il s'étire un peu puis casse",s:0},{k:'C',l:"Il s'étire et revient à sa forme",s:-2}]}
+];
+
+var Q9={id:'Q9',t:'Quelles sont tes 2 principales problématiques ?',sub:"Sélectionne jusqu'à 2 réponses",multi:true,max:2,o:[{k:'A',l:'Casse',s:0},{k:'B',l:'Pousse',s:0},{k:'C',l:'Alopécie',s:0},{k:'D',l:'Cuir chevelu sec ou irrité',s:0},{k:'E',l:'Cheveux secs',s:0}]};
+
+var REFS=[
+  {id:'R1',ref:true,conflict:'absorption_retention',t:'Après 24h sans appliquer de produit…',o:[{k:'A',l:'Mes cheveux sont secs',s:-.05},{k:'B',l:'Encore souples',s:.05}]},
+  {id:'R2',ref:true,conflict:'absorption_buildup',t:"Juste après l'application d'un produit, tu vois une couche visible ?",o:[{k:'A',l:'Non, le produit disparaît',s:-.05},{k:'B',l:'Oui, ça reste visible',s:.05}]},
+  {id:'R3',ref:true,conflict:'hydration_dryness',t:'Quand tu fais un soin, tu commences par…',o:[{k:'A',l:"Eau ou spray hydratant d'abord",s:-.05},{k:'B',l:"Huile ou beurre d'abord",s:.05}]},
+  {id:'R4',ref:true,conflict:'humidity_contradictory',t:'Sous la pluie ou dans un air très humide…',o:[{k:'A',l:'Mes cheveux gonflent clairement',s:-.05},{k:'B',l:'Rien de notable',s:.05}]},
+  {id:'R5',ref:true,conflict:'dryness_scalp',t:'Comment est ton cuir chevelu la plupart du temps ?',o:[{k:'A',l:'Gras',s:.05},{k:'B',l:'Normal',s:0},{k:'C',l:'Sec',s:-.05}]},
+  {id:'R6',ref:true,conflict:'breakage_elasticity',t:'En tirant un cheveu mouillé…',o:[{k:'A',l:'Il casse',s:-.05},{k:'B',l:"Il s'étire",s:0},{k:'C',l:'Il revient',s:.05}]},
+  {id:'R7',ref:true,conflict:'washing_dryness',t:'Après lavage…',o:[{k:'A',l:'Mes cheveux sont doux',s:.05},{k:'B',l:'Mes cheveux sont secs',s:-.05}]}
+];
+
+var PROFILES={
+  haute:{
+    title:'Porosité Élevée',
+    desc:"Tes cheveux ne gardent pas les produits car leurs écailles sont trop ouvertes. Résultat : ils sont souvent secs, ternes, cassants malgré les soins que tu fais. Ta solution spécifique est de maintenir l'hydratation, faire que les soins restent dans les cheveux le plus longtemps possible, adopter les méthodes et routines adaptées à ta porosité.\n\nAvec la bonne méthode et routine adaptées, tu peux avoir les résultats en 4 ou 5 semaines.",
+    tips:["Hydrater tes cheveux avec un produit riche en eau tous les 2 jours maximum","Utiliser des produits riches et nourrissants","Sceller l'hydratation avec une huile ou un beurre riche après chaque soin","Protéger tes cheveux la nuit","Éviter l'utilisation de la chaleur trop longtemps — écailles trop ouvertes = évaporation immédiate"],
+    bundle:'Routine Hydratation Intense',
+    products:'Produits cheveux très poreux + accessoires + coaching + suivi + challenge + abonnement',
+    schedule:'Lavage : toutes les 5 semaines (bouclés/frisés) ou 6 semaines (crépus). Hydratation : tous les 2 jours.'
+  },
+  moyenne:{
+    title:'Porosité Moyenne',
+    desc:"Tes cheveux ont un bon équilibre entre absorption et rétention. Ils ne sont pas difficiles à hydrater mais peuvent devenir secs et se casser si la routine n'est pas adaptée. Ta solution spécifique est de maintenir cet équilibre sans surcharger ni négliger tes cheveux, avec des méthodes et routines adaptées.\n\nAvec la bonne méthode et routine, tu peux avoir les résultats en 4 ou 5 semaines.",
+    tips:["Maintenir une routine régulière en apprenant à reconnaître les besoins de tes cheveux","Hydrater 2 à 3 fois par semaine","Utiliser des produits équilibrés, ni trop lourds ni trop légers","Protéger tes cheveux la nuit","Éviter l'utilisation de la chaleur trop longtemps et respecter les temps de pose"],
+    bundle:'Routine Équilibre',
+    products:'Shampoing équilibrant + Masque hydratant léger + Leave-in léger + Spray hydratant',
+    schedule:'Lavage : toutes les 5 semaines (bouclés/frisés) ou 6 semaines (crépus). Hydratation : 2 à 3 fois par semaine.'
+  },
+  faible:{
+    title:'Porosité Faible',
+    desc:"Les écailles de tes cheveux sont fermées, du coup tes cheveux ont du mal à absorber les produits — c'est pour ça qu'ils semblent sans vie, avec des résidus qui s'accumulent et parfois cassants. Ta solution spécifique est : ouvrir les écailles avant de soigner pour que les produits puissent entrer, utiliser les méthodes et routines adaptées pour faire pénétrer les produits, maintenir l'hydratation le plus longtemps possible sans asphyxier le cheveu.\n\nAvec la bonne méthode et routine, tu peux avoir les résultats en 4 ou 5 semaines.",
+    tips:["Utiliser de la chaleur avant chaque soin pour ouvrir les écailles — bien suivre les instructions pour les cheveux peu poreux","Préférer des produits légers — les produits lourds restent en surface","Clarifier régulièrement pour éviter l'accumulation","Protéger tes cheveux la nuit"],
+    bundle:'Routine Pénétration',
+    products:'Shampoing clarifiant doux + Masque pénétrant + Leave-in ultra léger + Spray léger',
+    schedule:'Lavage : toutes les 5 semaines (bouclés/frisés) ou 6 semaines (crépus). Hydratation : selon absorption.'
+  }
+};
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+var ans={}, qlist=[], idx=0;
+var REF_PRIORITIES=['absorption_retention','absorption_buildup','hydration_dryness','humidity_contradictory','dryness_scalp','breakage_elasticity','washing_dryness'];
+
+function getAnswerScore(q){
+  var a=ans[q.id]; if(!a) return null;
+  var opt=q.o.find(function(o){return o.k===a;});
+  return opt ? opt.s : null;
+}
+
+function getConflictKeys(){
+  var q1=ans.Q1;
+  var q2=ans.Q2;
+  var q3=ans.Q3;
+  var q4=ans.Q4;
+  var q5=ans.Q5;
+  var q6=ans.Q6;
+  var q8=ans.Q8;
+  var concerns=Array.isArray(ans.Q9)?ans.Q9:[];
+  var keys=[];
+
+  if(q1==='A'&&q3==='A') keys.push('absorption_retention');
+  if(q4==='A'&&q5==='C') keys.push('absorption_buildup');
+  if(q3==='C'&&concerns.indexOf('E')>-1) keys.push('hydration_dryness');
+  if((q6==='A'&&q1==='C')||(q6==='C'&&q1==='A')) keys.push('humidity_contradictory');
+  if(concerns.indexOf('E')>-1) keys.push('dryness_scalp');
+  if(concerns.indexOf('A')>-1&&q8&&q8!=='A') keys.push('breakage_elasticity');
+  if(q2==='A'&&q3==='C') keys.push('washing_dryness');
+
+  return keys.filter(function(key, index){ return keys.indexOf(key)===index; });
+}
+
+function getRefQuestions(){
+  var conflicts=getConflictKeys();
+  if(!conflicts.length) return [];
+
+  var neu=B1.filter(function(q){return q.v!=='hair_type'&&ans[q.id]==='B';}).length;
+  var rel=Math.max(0,100-conflicts.length*10-neu*5);
+  if(rel>=60) return [];
+
+  var ordered=REF_PRIORITIES.filter(function(key){ return conflicts.indexOf(key)>-1; });
+  if(ordered.length===1){
+    var fallback=REF_PRIORITIES.find(function(key){ return key!==ordered[0]; });
+    if(fallback) ordered.push(fallback);
+  }
+
+  return ordered.slice(0,4).map(function(key){
+    return REFS.find(function(ref){ return ref.conflict===key; });
+  }).filter(Boolean);
+}
+
+// ── SCREENS ───────────────────────────────────────────────────────────────────
+function showScreen(id){
+  document.getElementById('sd-landing').style.display = id==='landing' ? '' : 'none';
+  document.getElementById('sd-capture').classList.toggle('active', id==='capture');
+  document.getElementById('sd-quiz').classList.toggle('active', id==='quiz');
+  document.getElementById('sd-loading').classList.toggle('active', id==='loading');
+  document.getElementById('sd-results').classList.toggle('active', id==='results');
+  window.scrollTo(0,0);
+}
+
+// ── BUILD LIST ────────────────────────────────────────────────────────────────
+function buildList(){
+  var refs=getRefQuestions();
+  qlist=B1.concat([Q9]).concat(refs);
+}
+
+// ── RENDER QUESTION ───────────────────────────────────────────────────────────
+function renderQ(){
+  buildList();
+  var q=qlist[idx];
+  var total=qlist.length;
+  document.getElementById('sd-step-label').textContent='Question '+(idx+1)+' / '+total;
+  var pct=Math.round((idx+1)/qlist.length*100);
+  document.getElementById('sd-progress').style.width=pct+'%';
+
+  var sel=ans[q.id];
+  var isMulti=!!q.multi;
+  var isLast=idx===qlist.length-1;
+
+  var refHtml=q.ref?'<div class="sd-quiz__ref-note">⚡ Question d\'affinage — ajoutée pour préciser votre diagnostic</div>':'';
+  var subHtml=q.sub?'<p class="sd-quiz__subtitle">'+q.sub+'</p>':'';
+
+  var optsHtml=q.o.map(function(opt){
+    var isSel=isMulti?(Array.isArray(sel)&&sel.indexOf(opt.k)>-1):sel===opt.k;
+    var mediaHtml=opt.img?'<span class="sd-opt__media"><img class="sd-opt__img" src="'+opt.img+'" alt="'+opt.l+'"></span>':'';
+    return '<button class="sd-opt'+(isSel?' selected':'')+'" data-k="'+opt.k+'">'
+      +'<span class="sd-opt__content">'
+      +'<span class="sd-opt__key">'+opt.k+'</span>'
+      +mediaHtml
+      +'<span class="sd-opt__label">'+opt.l+'</span>'
+      +'</span>'
+      +'</button>';
+  }).join('');
+
+  var canNext=isMulti?(Array.isArray(sel)&&sel.length>0):!!sel;
+  var nextTxt=isLast?'Voir mes résultats →':'Question suivante →';
+
+  var card=document.getElementById('sd-qcard');
+  card.innerHTML=refHtml
+    +'<div class="sd-quiz__qnum'+(q.ref?' sd-quiz__qnum--ref':'')+'">'+q.id+'</div>'
+    +'<h2 class="sd-quiz__question">'+q.t+'</h2>'
+    +subHtml
+    +'<div class="sd-quiz__options">'+optsHtml+'</div>'
+    +'<div class="sd-quiz__nav">'
+    +(idx>0?'<button class="sd-quiz__back" id="sd-back">← Retour</button>':'<span></span>')
+    +'<button class="sd-btn sd-btn--primary" id="sd-next"'+(canNext?'':' disabled style="opacity:.4;cursor:not-allowed;"')+'>'+nextTxt+'</button>'
+    +'</div>';
+
+  card.querySelectorAll('.sd-opt').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var k=this.getAttribute('data-k');
+      if(isMulti){
+        var cur=Array.isArray(ans[q.id])?ans[q.id].slice():[];
+        var i=cur.indexOf(k);
+        if(i>-1){cur.splice(i,1);}
+        else if(cur.length<(q.max||2)){cur.push(k);}
+        ans[q.id]=cur;
+      } else {
+        ans[q.id]=k;
+      }
+      renderQ();
+    });
+  });
+
+  var nb=document.getElementById('sd-next');
+  if(nb) nb.addEventListener('click',function(){
+    if(isLast){showResults();return;}
+    idx++;renderQ();
+  });
+  var bb=document.getElementById('sd-back');
+  if(bb) bb.addEventListener('click',function(){idx--;renderQ();});
+}
+
+// ── COMPUTE ───────────────────────────────────────────────────────────────────
+function compute(){
+  var raw=0;
+  B1.forEach(function(q){
+    var a=ans[q.id]; if(!a) return;
+    var opt=q.o.find(function(o){return o.k===a;}); if(!opt) return;
+    raw+=opt.s*W[q.v];
+  });
+  getRefQuestions().forEach(function(q){
+    var a=ans[q.id]; if(!a) return;
+    var opt=q.o.find(function(o){return o.k===a;}); if(!opt) return;
+    raw+=opt.s;
+  });
+  var norm=Math.round(raw*SF);
+  var cl=Math.max(-100,Math.min(100,norm));
+  var conf=getConflictKeys().length;
+  var neu=B1.filter(function(q){return q.v!=='hair_type'&&ans[q.id]==='B';}).length;
+  var rel=Math.max(0,100-conf*10-neu*5);
+  var profileKey='moyenne';
+  if(cl<0){ profileKey = cl<=-30 ? 'haute' : 'moyenne'; }
+  else if(cl>0){ profileKey = cl>=30 ? 'faible' : 'moyenne'; }
+  return{cl:cl,rel:rel,profileKey:profileKey};
+}
+
+// ── SAVE PROFILE ───────────────────────────────────────────────────────────
+async function saveProfile(firstName, email, result, profile) {
+  var bucket = result.cl > 30 ? 'haute_elevee'
+             : result.cl > 0  ? 'haute_mixte'
+             : result.cl > -30 ? 'faible_mixte'
+             : 'faible_elevee';
+
+  var textureMap = { A: 'bouclee', B: 'frisee', C: 'crepue', D: 'lisse' };
+  var texture = textureMap[ans.Q10] || 'inconnu';
+  var concerns = Array.isArray(ans.Q9) ? ans.Q9.join('-') : '';
+  var today = new Date().toISOString().split('T')[0];
+
+  var tags = [
+    'shema_diagnostic',
+    'shema_porosity:' + bucket,
+    'shema_score:' + result.cl,
+    'shema_reliability:' + result.rel,
+    'shema_texture:' + texture,
+    'shema_bundle:' + (result.cl < 0 ? 'haute_porosite' : 'faible_porosite'),
+    'shema_date:' + today,
+    concerns ? 'shema_concerns:' + concerns : null
+  ].filter(Boolean).join(', ');
+
+  try {
+    var res = await fetch(CREATE_CUSTOMER_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName: firstName,
+        email: email,
+        tags: tags
+      })
+    });
+
+    var data = await res.json();
+    if (!res.ok) {
+      console.warn('SHEMA saveProfile error:', data);
+    }
+  } catch (e) {
+    console.warn('SHEMA saveProfile fetch error:', e);
+  }
+}
+
+// ── SHOW RESULTS ──────────────────────────────────────────────────────────────
+function showResults(){
+  showScreen('loading');
+  window.setTimeout(function(){
+    var r=compute();
+    var p=PROFILES[r.profileKey];
+    var firstName=document.getElementById('sd-firstname').value.trim();
+    var email=document.getElementById('sd-email').value.trim();
+    var tMap={A:'Bouclée',B:'Frisée',C:'Crépue',D:'Lisse'};
+    var cMap={A:'Casse',B:'Pousse',C:'Alopécie',D:'Cuir chevelu sec ou irrité',E:'Cheveux secs'};
+
+    document.getElementById('r-title').textContent=p.title;
+    document.getElementById('r-subtitle').textContent=r.profileKey==='moyenne'?'profil intermédiaire':'';
+    document.getElementById('r-texture').textContent=tMap[ans.Q10]||'—';
+
+    var cKeys=Array.isArray(ans.Q9)?ans.Q9:[];
+    var cSec=document.getElementById('r-concerns-section');
+    if(cKeys.length>0){
+      cSec.style.display='';
+      document.getElementById('r-concerns').innerHTML=cKeys.map(function(k){
+        return '<span class="sd-concern-pill">'+cMap[k]+'</span>';
+      }).join('');
+    } else { cSec.style.display='none'; }
+
+    document.getElementById('r-desc').textContent=p.desc;
+    document.getElementById('r-tips').innerHTML=p.tips.map(function(t){return'<li>'+t+'</li>';}).join('');
+    document.getElementById('r-schedule').textContent=p.schedule;
+    document.getElementById('r-bundle-name').textContent=p.bundle;
+    document.getElementById('r-bundle-products').textContent=p.products;
+
+    saveProfile(firstName, email, r, p).catch(function(){});
+    showScreen('results');
+  }, 1500);
+}
+
+// ── CTA HANDLER ───────────────────────────────────────────────────────────────
+function goBundle(){
+  if(BUNDLE_URL){ window.location.href=BUNDLE_URL; }
+  else { alert('Lien bundle à configurer dans l\'éditeur de thème (panneau gauche → Liens).'); }
+}
+function goCoaching(){
+  if(COACHING_URL){ window.location.href=COACHING_URL; }
+  else { alert('Lien coaching à configurer dans l\'éditeur de thème (panneau gauche → Liens).'); }
+}
+function goAccount(){
+  window.location.href=ACCOUNT_URL;
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+showScreen('landing');
+
+document.getElementById('sd-hero-cta').addEventListener('click',function(){showScreen('capture');});
+document.getElementById('sd-cta-bottom').addEventListener('click',function(){showScreen('capture');});
+
+document.getElementById('sd-capture-next').addEventListener('click',function(){
+  var fn=document.getElementById('sd-firstname').value.trim();
+  var em=document.getElementById('sd-email').value.trim();
+  if(!fn||!em||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){
+    alert('Veuillez renseigner votre prénom et un email valide.');
+    return;
+  }
+  ans={};idx=0;
+  showScreen('quiz');
+  renderQ();
+});
+
+document.getElementById('r-bundle-btn').addEventListener('click', goBundle);
+document.getElementById('r-cta-routine').addEventListener('click', goBundle);
+document.getElementById('r-cta-account').addEventListener('click', goAccount);
+document.getElementById('r-cta-coaching').addEventListener('click', goCoaching);
+
+document.getElementById('r-restart').addEventListener('click',function(){
+  ans={};idx=0;
+  document.getElementById('sd-firstname').value='';
+  document.getElementById('sd-email').value='';
+  showScreen('landing');
+});
+
+})();
+</script>
+
+
+{% schema %}
+{
+  "name": "SHEMA Diagnostic",
+  "tag": "section",
+  "class": "shema-diagnostic-section",
+  "settings": [
+    { "type": "header", "content": "🖼️ Hero" },
+    { "type": "text", "id": "hero_tag", "label": "Tag", "default": "Diagnostic Capillaire" },
+    { "type": "text", "id": "hero_title_line1", "label": "Titre ligne 1", "default": "Découvrez votre" },
+    { "type": "text", "id": "hero_title_line2", "label": "Titre ligne 2 (italique)", "default": "vraie nature" },
+    { "type": "text", "id": "hero_title_line3", "label": "Titre ligne 3", "default": "capillaire" },
+    { "type": "textarea", "id": "hero_desc", "label": "Description", "default": "Un diagnostic personnalisé pour identifier votre porosité, votre texture et vos besoins — et recevoir une routine capillaire sur mesure." },
+    { "type": "text", "id": "hero_stat1_num", "label": "Stat 1 — Chiffre", "default": "10+" },
+    { "type": "text", "id": "hero_stat1_label", "label": "Stat 1 — Label", "default": "Questions" },
+    { "type": "text", "id": "hero_stat2_num", "label": "Stat 2 — Chiffre", "default": "~5" },
+    { "type": "text", "id": "hero_stat2_label", "label": "Stat 2 — Label", "default": "Minutes" },
+    { "type": "text", "id": "hero_stat3_num", "label": "Stat 3 — Chiffre", "default": "4" },
+    { "type": "text", "id": "hero_stat3_label", "label": "Stat 3 — Label", "default": "Profils" },
+    { "type": "text", "id": "hero_cta", "label": "Bouton CTA", "default": "Commencer mon diagnostic" },
+    { "type": "image_picker", "id": "hero_image", "label": "Image hero (droite)" },
+
+    { "type": "header", "content": "📖 Section Intro" },
+    { "type": "text", "id": "intro_label", "label": "Label", "default": "Pourquoi ce diagnostic ?" },
+    { "type": "text", "id": "intro_title", "label": "Titre", "default": "Vos cheveux ont leur propre langage" },
+    { "type": "textarea", "id": "intro_desc", "label": "Description", "default": "Chaque chevelure est unique. La porosité, la texture, l'élasticité — ces caractéristiques déterminent comment vos cheveux réagissent aux produits et aux soins. Sans les connaître, vous risquez d'utiliser les mauvais produits et d'obtenir des résultats décevants." },
+    { "type": "image_picker", "id": "intro_image", "label": "Image intro" },
+    { "type": "text", "id": "intro_badge_num", "label": "Badge — Chiffre", "default": "4" },
+    { "type": "text", "id": "intro_badge_text", "label": "Badge — Texte", "default": "profils capillaires" },
+
+    { "type": "header", "content": "🔢 Les 4 étapes" },
+    { "type": "text", "id": "steps_label", "label": "Label", "default": "Comment ça fonctionne" },
+    { "type": "text", "id": "steps_title", "label": "Titre", "default": "Un processus simple en 4 étapes" },
+    { "type": "text", "id": "step1_title", "label": "Étape 1 — Titre", "default": "Vos informations" },
+    { "type": "textarea", "id": "step1_desc", "label": "Étape 1 — Description", "default": "Renseignez votre prénom et votre email pour recevoir vos résultats." },
+    { "type": "text", "id": "step2_title", "label": "Étape 2 — Titre", "default": "Le questionnaire" },
+    { "type": "textarea", "id": "step2_desc", "label": "Étape 2 — Description", "default": "Répondez à 10 questions sur le comportement de vos cheveux au quotidien." },
+    { "type": "text", "id": "step3_title", "label": "Étape 3 — Titre", "default": "L'analyse" },
+    { "type": "textarea", "id": "step3_desc", "label": "Étape 3 — Description", "default": "Votre profil capillaire est calculé selon 8 variables pondérées." },
+    { "type": "text", "id": "step4_title", "label": "Étape 4 — Titre", "default": "Votre routine" },
+    { "type": "textarea", "id": "step4_desc", "label": "Étape 4 — Description", "default": "Recevez vos recommandations personnalisées et votre bundle adapté." },
+
+    { "type": "header", "content": "🧪 Questionnaire" },
+    { "type": "image_picker", "id": "q10_bouclee_image", "label": "Texture bouclée — image" },
+    { "type": "image_picker", "id": "q10_frisee_image", "label": "Texture frisée — image" },
+    { "type": "image_picker", "id": "q10_crepue_image", "label": "Texture crépue — image" },
+    { "type": "image_picker", "id": "q10_lisse_image", "label": "Texture lisse — image" },
+
+    { "type": "header", "content": "💬 Témoignages" },
+    { "type": "text", "id": "testimonials_label", "label": "Label", "default": "Témoignages" },
+    { "type": "text", "id": "testimonials_title", "label": "Titre", "default": "Elles ont transformé leurs cheveux" },
+    { "type": "textarea", "id": "t1_text", "label": "Témoignage 1 — Texte", "default": "« Je ne comprenais pas pourquoi mes cheveux restaient secs malgré tous mes soins. Le diagnostic m'a tout expliqué. En 5 semaines, mes cheveux ont retrouvé de l'éclat. »" },
+    { "type": "text", "id": "t1_author", "label": "Témoignage 1 — Auteure", "default": "Aminata K." },
+    { "type": "text", "id": "t1_profile", "label": "Témoignage 1 — Profil", "default": "Porosité élevée — Cheveux crépus" },
+    { "type": "textarea", "id": "t2_text", "label": "Témoignage 2 — Texte", "default": "« J'utilisais des produits lourds depuis des années sans résultat. Le diagnostic m'a révélé que j'avais une porosité faible. La routine Pénétration a tout changé. »" },
+    { "type": "text", "id": "t2_author", "label": "Témoignage 2 — Auteure", "default": "Fatoumata D." },
+    { "type": "text", "id": "t2_profile", "label": "Témoignage 2 — Profil", "default": "Porosité faible — Cheveux bouclés" },
+    { "type": "textarea", "id": "t3_text", "label": "Témoignage 3 — Texte", "default": "« Simple, rapide et tellement précis. J'ai enfin une routine qui correspond vraiment à mes cheveux. Je recommande à toutes mes amies. »" },
+    { "type": "text", "id": "t3_author", "label": "Témoignage 3 — Auteure", "default": "Nadia B." },
+    { "type": "text", "id": "t3_profile", "label": "Témoignage 3 — Profil", "default": "Porosité mixte — Cheveux frisés" },
+
+    { "type": "header", "content": "❓ FAQ" },
+    { "type": "text", "id": "faq_label", "label": "Label", "default": "Questions fréquentes" },
+    { "type": "text", "id": "faq_title", "label": "Titre", "default": "Tout ce que vous devez savoir" },
+    { "type": "text", "id": "faq1_q", "label": "FAQ 1 — Question", "default": "Le diagnostic est-il vraiment gratuit ?" },
+    { "type": "textarea", "id": "faq1_a", "label": "FAQ 1 — Réponse", "default": "Oui, le diagnostic complet est entièrement gratuit. Vous obtenez votre profil de porosité, vos recommandations basiques et votre calendrier de routine sans aucun achat. La routine détaillée est débloquée après l'achat du bundle recommandé." },
+    { "type": "text", "id": "faq2_q", "label": "FAQ 2 — Question", "default": "Combien de temps dure le diagnostic ?" },
+    { "type": "textarea", "id": "faq2_a", "label": "FAQ 2 — Réponse", "default": "Le diagnostic prend environ 5 minutes. Il comprend 10 questions obligatoires sur le comportement de vos cheveux, plus quelques questions d'affinage si des contradictions sont détectées dans vos réponses." },
+    { "type": "text", "id": "faq3_q", "label": "FAQ 3 — Question", "default": "Comment sont calculés les résultats ?" },
+    { "type": "textarea", "id": "faq3_a", "label": "FAQ 3 — Réponse", "default": "Vos réponses sont analysées selon 8 variables capillaires pondérées : absorption de l'eau, vitesse de séchage, rétention d'hydratation, absorption des produits, accumulation de résidus, réaction à l'humidité, texture et élasticité." },
+    { "type": "text", "id": "faq4_q", "label": "FAQ 4 — Question", "default": "Puis-je refaire le diagnostic plus tard ?" },
+    { "type": "textarea", "id": "faq4_a", "label": "FAQ 4 — Réponse", "default": "Oui, vous pouvez refaire le diagnostic à tout moment. Il est recommandé de le refaire tous les 6 mois ou après un changement capillaire important (coloration, défrisage, coupe significative)." },
+    { "type": "text", "id": "faq5_q", "label": "FAQ 5 — Question", "default": "Les produits recommandés sont-ils adaptés à tous les types de cheveux ?" },
+    { "type": "textarea", "id": "faq5_a", "label": "FAQ 5 — Réponse", "default": "Les produits SHEMA sont formulés spécifiquement pour les cheveux texturés — bouclés, frisés et crépus. Chaque bundle est sélectionné en fonction de votre profil de porosité exact." },
+
+    { "type": "header", "content": "🎯 CTA Final" },
+    { "type": "text", "id": "cta_title", "label": "Titre", "default": "Prête à découvrir votre vraie nature capillaire ?" },
+    { "type": "text", "id": "cta_desc", "label": "Description", "default": "5 minutes pour comprendre vos cheveux. Une routine pour les transformer." },
+    { "type": "text", "id": "cta_btn", "label": "Bouton", "default": "Commencer mon diagnostic" },
+
+    { "type": "header", "content": "🔗 Liens" },
+    { "type": "url", "id": "bundle_url", "label": "Lien bundle / routine" },
+    { "type": "url", "id": "coaching_url", "label": "Lien réservation coaching" }
+  ],
+  "presets": [{ "name": "SHEMA Diagnostic" }]
+}
+{% endschema %}
