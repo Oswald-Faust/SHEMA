@@ -734,7 +734,7 @@
 var BUNDLE_URL = {{ s.bundle_url | default: '' | json }};
 var COACHING_URL = {{ s.coaching_url | default: '' | json }};
 var ACCOUNT_URL = 'https://shopify.com/95330024010/account';
-var CREATE_CUSTOMER_API_URL = 'https://maisonshema.myshopify.com/apps/shema-diagnostic/api/create-customer';
+var CREATE_CUSTOMER_API_URL = 'https://shema-nine.vercel.app/api/create-customer';
 var TEXTURE_IMAGES = {
   A: {% if s.q10_bouclee_image %}{{ s.q10_bouclee_image | image_url: width: 400 | json }}{% else %}null{% endif %},
   B: {% if s.q10_frisee_image %}{{ s.q10_frisee_image | image_url: width: 400 | json }}{% else %}null{% endif %},

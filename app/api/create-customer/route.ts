@@ -29,7 +29,8 @@ async function searchCustomerByEmail(email: string) {
   });
 
   if (!res.ok) {
-    throw new Error(`Shopify search failed: ${res.status}`);
+    const errorText = await res.text();
+    throw new Error(`Shopify search failed: ${res.status} ${errorText}`);
   }
 
   return (await res.json()) as {
@@ -53,7 +54,8 @@ async function updateCustomerTags(customerId: number, tags: string) {
   );
 
   if (!res.ok) {
-    throw new Error(`Shopify update failed: ${res.status}`);
+    const errorText = await res.text();
+    throw new Error(`Shopify update failed: ${res.status} ${errorText}`);
   }
 
   return res.json();
@@ -77,7 +79,8 @@ async function createCustomer(email: string, firstName: string, tags: string) {
   );
 
   if (!res.ok) {
-    throw new Error(`Shopify create failed: ${res.status}`);
+    const errorText = await res.text();
+    throw new Error(`Shopify create failed: ${res.status} ${errorText}`);
   }
 
   return res.json();
@@ -125,7 +128,10 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error("SHEMA create-customer route error:", error);
     return NextResponse.json(
-      { error: "Erreur lors de la création du compte client" },
+      {
+        error: "Erreur lors de la création du compte client",
+        detail: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 },
     );
   }
