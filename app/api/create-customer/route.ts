@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const SHOP_DOMAIN = process.env.SHOPIFY_STORE_DOMAIN;
-const ADMIN_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN;
+const CLIENT_ID = process.env.SHOPIFY_APP_CLIENT_ID;
+const CLIENT_SECRET = process.env.SHOPIFY_APP_CLIENT_SECRET;
 const API_VERSION = process.env.SHOPIFY_ADMIN_API_VERSION || "2025-04";
 
 type CreateCustomerBody = {
@@ -13,7 +14,48 @@ type CreateCustomerBody = {
 function getShopifyHeaders() {
   return {
     "Content-Type": "application/json",
-    "X-Shopify-Access-Token": ADMIN_TOKEN as string,
+  };
+}
+
+async function getAdminAccessToken() {
+  const tokenUrl = `https://${SHOP_DOMAIN}/admin/oauth/access_token`;
+  const body = new URLSearchParams({
+    grant_type: "client_credentials",
+    client_id: CLIENT_ID as string,
+    client_secret: CLIENT_SECRET as string,
+  });
+
+  const res = await fetch(tokenUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: body.toString(),
+    cache: "no-store",
+  });
+
+  const data = (await res.json()) as {
+    access_token?: string;
+    scope?: string;
+    expires_in?: number;
+    error?: string;
+    error_description?: string;
+  };
+
+  if (!res.ok || !data.access_token) {
+    throw new Error(
+      `Shopify token grant failed: ${res.status} ${JSON.stringify(data)}`,
+    );
+  }
+
+  return data.access_token;
+}
+
+async function getAuthedHeaders() {
+  const accessToken = await getAdminAccessToken();
+  return {
+    ...getShopifyHeaders(),
+    "X-Shopify-Access-Token": accessToken,
   };
 }
 
@@ -24,7 +66,7 @@ async function searchCustomerByEmail(email: string) {
 
   const res = await fetch(url, {
     method: "GET",
-    headers: getShopifyHeaders(),
+    headers: await getAuthedHeaders(),
     cache: "no-store",
   });
 
@@ -43,7 +85,7 @@ async function updateCustomerTags(customerId: number, tags: string) {
     `https://${SHOP_DOMAIN}/admin/api/${API_VERSION}/customers/${customerId}.json`,
     {
       method: "PUT",
-      headers: getShopifyHeaders(),
+      headers: await getAuthedHeaders(),
       body: JSON.stringify({
         customer: {
           id: customerId,
@@ -66,7 +108,7 @@ async function createCustomer(email: string, firstName: string, tags: string) {
     `https://${SHOP_DOMAIN}/admin/api/${API_VERSION}/customers.json`,
     {
       method: "POST",
-      headers: getShopifyHeaders(),
+      headers: await getAuthedHeaders(),
       body: JSON.stringify({
         customer: {
           email,
@@ -87,7 +129,7 @@ async function createCustomer(email: string, firstName: string, tags: string) {
 }
 
 export async function POST(req: NextRequest) {
-  if (!SHOP_DOMAIN || !ADMIN_TOKEN) {
+  if (!SHOP_DOMAIN || !CLIENT_ID || !CLIENT_SECRET) {
     return NextResponse.json(
       { error: "Configuration Shopify serveur manquante" },
       { status: 500 },
