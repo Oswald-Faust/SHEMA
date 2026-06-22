@@ -4,6 +4,7 @@ const SHOP_DOMAIN = process.env.SHOPIFY_STORE_DOMAIN;
 const CLIENT_ID = process.env.SHOPIFY_APP_CLIENT_ID;
 const CLIENT_SECRET = process.env.SHOPIFY_APP_CLIENT_SECRET;
 const API_VERSION = process.env.SHOPIFY_ADMIN_API_VERSION || "2025-04";
+const ALLOWED_ORIGIN = "https://maisonshema.myshopify.com";
 
 type CreateCustomerBody = {
   email?: string;
@@ -14,6 +15,15 @@ type CreateCustomerBody = {
 function getShopifyHeaders() {
   return {
     "Content-Type": "application/json",
+  };
+}
+
+function withCorsHeaders(headers?: HeadersInit) {
+  return {
+    "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    ...headers,
   };
 }
 
@@ -132,7 +142,7 @@ export async function POST(req: NextRequest) {
   if (!SHOP_DOMAIN || !CLIENT_ID || !CLIENT_SECRET) {
     return NextResponse.json(
       { error: "Configuration Shopify serveur manquante" },
-      { status: 500 },
+      { status: 500, headers: withCorsHeaders() },
     );
   }
 
@@ -145,7 +155,7 @@ export async function POST(req: NextRequest) {
     if (!email || !firstName) {
       return NextResponse.json(
         { error: "Email et prénom requis" },
-        { status: 400 },
+        { status: 400, headers: withCorsHeaders() },
       );
     }
 
@@ -162,11 +172,17 @@ export async function POST(req: NextRequest) {
       const mergedTags = Array.from(new Set([...currentTags, ...newTags])).join(", ");
 
       const data = await updateCustomerTags(existingCustomer.id, mergedTags);
-      return NextResponse.json({ success: true, exists: true, data });
+      return NextResponse.json(
+        { success: true, exists: true, data },
+        { headers: withCorsHeaders() },
+      );
     }
 
     const data = await createCustomer(email, firstName, tags);
-    return NextResponse.json({ success: true, exists: false, data });
+    return NextResponse.json(
+      { success: true, exists: false, data },
+      { headers: withCorsHeaders() },
+    );
   } catch (error) {
     console.error("SHEMA create-customer route error:", error);
     return NextResponse.json(
@@ -174,7 +190,14 @@ export async function POST(req: NextRequest) {
         error: "Erreur lors de la création du compte client",
         detail: error instanceof Error ? error.message : "Unknown error",
       },
-      { status: 500 },
+      { status: 500, headers: withCorsHeaders() },
     );
   }
+}
+
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: withCorsHeaders(),
+  });
 }
