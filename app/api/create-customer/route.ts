@@ -9,6 +9,7 @@ const ALLOWED_ORIGIN = "https://maisonshema.myshopify.com";
 type CreateCustomerBody = {
   email?: string;
   firstName?: string;
+  lastName?: string;
   tags?: string;
 };
 
@@ -113,7 +114,12 @@ async function updateCustomerTags(customerId: number, tags: string) {
   return res.json();
 }
 
-async function createCustomer(email: string, firstName: string, tags: string) {
+async function createCustomer(
+  email: string,
+  firstName: string,
+  lastName: string,
+  tags: string,
+) {
   const res = await fetch(
     `https://${SHOP_DOMAIN}/admin/api/${API_VERSION}/customers.json`,
     {
@@ -123,6 +129,7 @@ async function createCustomer(email: string, firstName: string, tags: string) {
         customer: {
           email,
           first_name: firstName,
+          last_name: lastName,
           tags,
           send_email_invite: true,
         },
@@ -150,6 +157,7 @@ export async function POST(req: NextRequest) {
     const body = (await req.json()) as CreateCustomerBody;
     const email = body.email?.trim().toLowerCase();
     const firstName = body.firstName?.trim();
+    const lastName = body.lastName?.trim() || "";
     const tags = body.tags?.trim() || "";
 
     if (!email || !firstName) {
@@ -178,7 +186,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const data = await createCustomer(email, firstName, tags);
+    const data = await createCustomer(email, firstName, lastName, tags);
     return NextResponse.json(
       { success: true, exists: false, data },
       { headers: withCorsHeaders() },

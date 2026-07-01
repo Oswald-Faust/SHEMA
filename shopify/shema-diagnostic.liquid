@@ -221,6 +221,8 @@
 .sd-field:focus { border-color: var(--clay); }
 .sd-field::placeholder { color: rgba(42,26,18,.35); }
 .sd-capture-card__note { font-size: 13px; color: var(--ink-soft); margin-top: 18px; text-align: center; font-weight: 300; }
+.sd-capture-card__skip { display: block; width: fit-content; margin: 24px auto 0; padding: 4px 0; border: 0; border-bottom: 1px solid currentColor; background: transparent; color: var(--ink-soft); font-family: 'Hanken Grotesk', sans-serif; font-size: 15px; cursor: pointer; }
+.sd-capture-card__skip:hover { color: var(--ink); }
 
 /* ── QUIZ ── */
 .sd-quiz-wrap { display: none; min-height: 100vh; background: var(--parchment); flex-direction: column; }
@@ -286,6 +288,9 @@
 .sd-results__section:last-child { border-bottom: none; }
 .sd-results__section-title { font-family: 'Fraunces', serif; font-size: clamp(28px, 3.2vw, 38px); font-weight: 400; color: var(--ink); margin-bottom: 24px; letter-spacing: -.01em; }
 .sd-results__desc { font-size: 17px; font-weight: 300; color: var(--ink-soft); line-height: 1.85; white-space: pre-line; }
+.sd-results__section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+.sd-results__section-head .sd-results__section-title { margin-bottom: 0; }
+.sd-results__identity-btn { flex-shrink: 0; }
 .sd-concerns { display: flex; flex-wrap: wrap; gap: 10px; }
 .sd-concern-pill { padding: 9px 22px; background: rgba(142,158,114,.14); border: 1px solid rgba(142,158,114,.4); font-size: 13px; font-weight: 600; color: var(--sage-deep); letter-spacing: .02em; border-radius: 100px; }
 .sd-tips { list-style: none; counter-reset: tips; }
@@ -315,6 +320,46 @@
 .sd-results__cta-title { font-family: 'Fraunces', serif; font-size: clamp(32px, 4.4vw, 56px); font-weight: 400; color: var(--parchment-2); margin-bottom: 16px; line-height: 1.08; }
 .sd-results__cta-desc { font-size: 16px; font-weight: 300; color: rgba(246,239,227,.65); margin-bottom: 40px; }
 .sd-results__cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.sd-results__cta-note { max-width: 760px; margin: 0 auto 34px; padding: 18px 22px; border-radius: 18px; background: rgba(246,239,227,.06); border: 1px solid rgba(246,239,227,.12); color: rgba(246,239,227,.8); font-size: 15px; line-height: 1.7; }
+.sd-results__cta-note strong { color: var(--parchment-2); font-weight: 600; }
+.sd-scroll-reveal { opacity: 0; transform: translateY(34px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); will-change: opacity, transform; }
+.sd-scroll-reveal.is-visible { opacity: 1; transform: none; }
+.sd-scroll-reveal[data-reveal-delay="1"] { transition-delay: .08s; }
+.sd-scroll-reveal[data-reveal-delay="2"] { transition-delay: .16s; }
+.sd-scroll-reveal[data-reveal-delay="3"] { transition-delay: .24s; }
+@media (prefers-reduced-motion: reduce) {
+  .sd-scroll-reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── MODAL ── */
+.sd-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; padding: 24px; z-index: 9500; }
+.sd-modal.active { display: flex; }
+.sd-modal__backdrop { position: absolute; inset: 0; background: rgba(30,19,12,.7); backdrop-filter: blur(8px); }
+.sd-modal__card { position: relative; width: 100%; max-width: 560px; background: var(--parchment-2); color: var(--ink); border-radius: 24px; padding: clamp(30px, 5vw, 42px); box-shadow: 0 40px 90px -40px rgba(30,19,12,.55); border: 1px solid var(--line-2); }
+.sd-modal__close { position: absolute; top: 18px; right: 18px; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; font-size: 20px; }
+.sd-modal__eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--clay-deep); margin-bottom: 18px; }
+.sd-modal__eyebrow::before { content: ''; width: 24px; height: 1.5px; background: currentColor; opacity: .5; }
+.sd-modal__title { font-family: 'Fraunces', serif; font-size: clamp(30px, 4vw, 42px); line-height: 1.08; font-weight: 400; margin-bottom: 14px; }
+.sd-modal__desc { font-size: 16px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 24px; }
+.sd-modal__list { list-style: none; margin-bottom: 28px; display: grid; gap: 12px; }
+.sd-modal__list li { display: flex; gap: 14px; align-items: flex-start; font-size: 15px; color: var(--ink); line-height: 1.55; }
+.sd-modal__list li::before { content: '•'; color: var(--clay); font-size: 22px; line-height: 1; margin-top: -1px; }
+.sd-modal__actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* ── ACCESS GATE ── */
+.sd-gate { display: none; min-height: 100vh; background:
+  radial-gradient(80% 70% at 50% 0%, rgba(192,103,62,.18) 0%, transparent 58%),
+  linear-gradient(180deg, rgba(30,19,12,.98) 0%, rgba(52,33,15,.98) 100%);
+  color: var(--parchment-2);
+  align-items: center; justify-content: center; padding: 48px 24px; }
+.sd-gate.active { display: flex; }
+.sd-gate__card { width: 100%; max-width: 720px; padding: clamp(34px, 5vw, 56px); border-radius: 28px; background: rgba(246,239,227,.05); border: 1px solid rgba(246,239,227,.12); box-shadow: 0 40px 90px -40px rgba(0,0,0,.55); text-align: center; backdrop-filter: blur(10px); }
+.sd-gate__eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--blush); margin-bottom: 22px; }
+.sd-gate__eyebrow::before, .sd-gate__eyebrow::after { content: ''; width: 28px; height: 1.5px; background: currentColor; opacity: .5; }
+.sd-gate__title { font-family: 'Fraunces', serif; font-size: clamp(42px, 6vw, 72px); line-height: .96; font-weight: 400; margin-bottom: 18px; letter-spacing: -.03em; color: var(--parchment-2); }
+.sd-gate__desc { max-width: 560px; margin: 0 auto 28px; font-size: 18px; line-height: 1.8; color: rgba(246,239,227,.72); }
+.sd-gate__note { max-width: 560px; margin: 0 auto 34px; padding: 18px 20px; border-radius: 18px; background: rgba(246,239,227,.06); border: 1px solid rgba(246,239,227,.12); font-size: 15px; line-height: 1.7; color: rgba(246,239,227,.82); }
+.sd-gate__actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 980px) {
@@ -330,6 +375,7 @@
   .sd-testimonials__grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
   .sd-locked__items { grid-template-columns: 1fr; }
   .sd-reassort { grid-template-columns: repeat(2, 1fr); }
+  .sd-results__section-head { flex-direction: column; align-items: flex-start; }
 }
 @media (max-width: 560px) {
   .sd-steps__grid { grid-template-columns: 1fr; }
@@ -350,12 +396,31 @@
   .sd-quiz__nav .sd-btn { width: 100%; }
   .sd-quiz__back { justify-content: center; padding: 12px; }
   .sd-results__cta-btns .sd-btn { width: 100%; }
+  .sd-modal__actions .sd-btn { width: 100%; }
+  .sd-gate__actions .sd-btn { width: 100%; }
 }
 </style>
 
 {% assign s = section.settings %}
+{% assign shema_diagnostic_locked = false %}
+{% if customer and customer.tags contains 'shema_diagnostic' %}
+  {% assign shema_diagnostic_locked = true %}
+{% endif %}
 
 <div class="sd" id="sd-root">
+
+  <div class="sd-gate" id="sd-gate">
+    <div class="sd-gate__card">
+      <span class="sd-gate__eyebrow">Diagnostic déjà réalisé</span>
+      <h1 class="sd-gate__title">Vous avez déjà réalisé votre diagnostic capillaire.</h1>
+      <p class="sd-gate__desc">Votre compte SHEMA contient déjà votre profil, vos informations capillaires et l'accès à votre espace personnel.</p>
+      <div class="sd-gate__note">Accédez directement à votre espace pour consulter votre carte d'identité capillaire et retrouver vos recommandations personnalisées.</div>
+      <div class="sd-gate__actions">
+        <button type="button" class="sd-btn sd-btn--primary sd-btn--lg" id="sd-gate-identity">Voir ma carte d'identité capillaire</button>
+        <button type="button" class="sd-btn sd-btn--outline-dark sd-btn--lg" id="sd-gate-account">Accéder à mon espace</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ══ LANDING ══ -->
   <div id="sd-landing">
@@ -614,13 +679,28 @@
     <div class="sd-capture-card">
       <div class="sd-capture-card__tag">Étape 0 — Informations</div>
       <h2 class="sd-capture-card__title">Avant de commencer</h2>
-      <p class="sd-capture-card__desc">Renseignez votre prénom et votre email. Vos résultats vous seront envoyés à la fin du diagnostic.</p>
-      <input class="sd-field" type="text" id="sd-firstname" placeholder="Votre prénom *">
-      <input class="sd-field" type="email" id="sd-email" placeholder="Votre adresse email *">
+      <p class="sd-capture-card__desc">Renseigne ton nom et ton prénom pour commencer ton diagnostic personnalisé.</p>
+      <input class="sd-field" type="text" id="sd-lastname" placeholder="Ton nom *" autocomplete="family-name">
+      <input class="sd-field" type="text" id="sd-firstname" placeholder="Ton prénom *" autocomplete="given-name">
       <button type="button" class="sd-btn sd-btn--primary" style="width:100%;margin-top:8px;" id="sd-capture-next">
         Commencer les questions <span class="sd-btn__arrow">→</span>
       </button>
       <p class="sd-capture-card__note">🔒 Vos données sont confidentielles et ne seront jamais partagées.</p>
+    </div>
+  </div>
+
+  <!-- ══ EMAIL CAPTURE ══ -->
+  <div class="sd-capture-wrap" id="sd-email-capture">
+    <div class="sd-capture-card">
+      <div class="sd-capture-card__tag">Dernière étape</div>
+      <h2 class="sd-capture-card__title">Ton diagnostic est prêt</h2>
+      <p class="sd-capture-card__desc">Renseigne ton email pour sauvegarder ton profil capillaire, retrouver tes recommandations dans ton espace SHEMA et profiter de tes avantages personnalisés.</p>
+      <input class="sd-field" type="email" id="sd-email" placeholder="Ton adresse email *" autocomplete="email" inputmode="email">
+      <button type="button" class="sd-btn sd-btn--primary" style="width:100%;margin-top:8px;" id="sd-email-next">
+        Enregistrer et voir mon diagnostic <span class="sd-btn__arrow">→</span>
+      </button>
+      <button type="button" class="sd-capture-card__skip" id="sd-email-skip">Non merci, accéder à mon diagnostic</button>
+      <p class="sd-capture-card__note">🔒 Tes données sont confidentielles et ne seront jamais partagées.</p>
     </div>
   </div>
 
@@ -665,29 +745,32 @@
       </div>
     </div>
     <div class="sd-results__body">
-      <div class="sd-results__section" id="r-concerns-section" style="display:none;">
+      <div class="sd-results__section sd-scroll-reveal" id="r-concerns-section" style="display:none;">
         <h3 class="sd-results__section-title">Vos problématiques</h3>
         <div class="sd-concerns" id="r-concerns"></div>
       </div>
-      <div class="sd-results__section">
-        <h3 class="sd-results__section-title">Votre profil capillaire</h3>
+      <div class="sd-results__section sd-scroll-reveal" data-reveal-delay="1">
+        <div class="sd-results__section-head">
+          <h3 class="sd-results__section-title">Votre profil capillaire</h3>
+          <button type="button" class="sd-btn sd-btn--outline-dark sd-results__identity-btn" id="r-identity-btn">Voir sa carte d'identité capillaire</button>
+        </div>
         <p class="sd-results__desc" id="r-desc"></p>
       </div>
-      <div class="sd-results__section">
+      <div class="sd-results__section sd-scroll-reveal" data-reveal-delay="1">
         <h3 class="sd-results__section-title">Recommandations basiques</h3>
         <ol class="sd-tips" id="r-tips"></ol>
       </div>
-      <div class="sd-results__section">
+      <div class="sd-results__section sd-scroll-reveal" data-reveal-delay="2">
         <h3 class="sd-results__section-title">Calendrier basique</h3>
         <p class="sd-results__desc" id="r-schedule"></p>
       </div>
-      <div class="sd-bundle-card">
+      <div class="sd-bundle-card sd-scroll-reveal" data-reveal-delay="1">
         <div class="sd-bundle-card__tag">Bundle recommandé</div>
         <div class="sd-bundle-card__name" id="r-bundle-name"></div>
         <div class="sd-bundle-card__products" id="r-bundle-products"></div>
         <button type="button" class="sd-btn sd-btn--light" id="r-bundle-btn">Voir mes recommandations produits <span class="sd-btn__arrow">→</span></button>
       </div>
-      <div class="sd-locked">
+      <div class="sd-locked sd-scroll-reveal" data-reveal-delay="2">
         <div class="sd-locked__title">🔒 Contenu Premium</div>
         <div class="sd-locked__sub">Débloqué après achat du bundle recommandé</div>
         <ul class="sd-locked__items">
@@ -701,7 +784,7 @@
         </ul>
         <button type="button" class="sd-btn sd-btn--outline-dark">Débloquer ma routine complète <span class="sd-btn__arrow">→</span></button>
       </div>
-      <div class="sd-results__section">
+      <div class="sd-results__section sd-scroll-reveal" data-reveal-delay="3">
         <h3 class="sd-results__section-title">Réassort intelligent</h3>
         <p class="sd-results__desc" style="margin-bottom:24px;">Durées estimées d'utilisation pour anticiper votre réassort :</p>
         <div class="sd-reassort">
@@ -712,17 +795,38 @@
         </div>
       </div>
     </div>
-    <div class="sd-results__cta">
-      <h3 class="sd-results__cta-title">Prête à transformer vos cheveux ?</h3>
-      <p class="sd-results__cta-desc">Obtenez votre routine complète et commencez votre transformation dès aujourd'hui.</p>
+    <div class="sd-results__cta sd-scroll-reveal" data-reveal-delay="1">
+      <h3 class="sd-results__cta-title" id="r-account-title">Votre espace SHEMA est presque prêt</h3>
+      <p class="sd-results__cta-desc" id="r-account-desc">Votre compte a bien été créé. Pour accéder à votre espace personnel, vous devez maintenant valider votre compte depuis l'email qui vient de vous être envoyé.</p>
+      <div class="sd-results__cta-note" id="r-account-note">
+        <strong>Important :</strong> consultez votre boîte mail, puis cliquez sur le lien d'activation reçu pour débloquer votre espace compte SHEMA, votre carte d'identité capillaire et vos prochaines recommandations personnalisées.
+      </div>
       <div class="sd-results__cta-btns">
         <button type="button" class="sd-btn sd-btn--light" id="r-cta-routine">Voir mes recommandations produits <span class="sd-btn__arrow">→</span></button>
-        <button type="button" class="sd-btn sd-btn--outline-dark" id="r-cta-account">Accéder à mon compte</button>
         <button type="button" class="sd-btn sd-btn--primary" id="r-cta-coaching">Réserver une séance coaching</button>
         <button type="button" class="sd-btn sd-btn--ghost-light" id="r-restart">Recommencer le diagnostic</button>
       </div>
     </div>
   </div><!-- /sd-results -->
+
+  <div class="sd-modal" id="sd-identity-modal" aria-hidden="true">
+    <div class="sd-modal__backdrop" data-close-modal></div>
+    <div class="sd-modal__card" role="dialog" aria-modal="true" aria-labelledby="sd-identity-title">
+      <button type="button" class="sd-modal__close" id="sd-modal-close" aria-label="Fermer">×</button>
+      <span class="sd-modal__eyebrow">Carte d'identité capillaire</span>
+      <h3 class="sd-modal__title" id="sd-identity-title">Consultez votre email pour accéder à votre espace SHEMA</h3>
+      <p class="sd-modal__desc">Votre carte d'identité capillaire complète est disponible dans votre espace personnel. Nous avons déjà envoyé le mail d'activation à l'adresse utilisée lors du diagnostic.</p>
+      <ul class="sd-modal__list">
+        <li>Ouvrez votre boîte mail et recherchez le message d'activation SHEMA.</li>
+        <li>Cliquez sur le lien de validation pour activer votre compte.</li>
+        <li>Revenez ensuite sur votre espace pour découvrir votre carte d'identité capillaire complète.</li>
+      </ul>
+      <div class="sd-modal__actions">
+        <button type="button" class="sd-btn sd-btn--primary" id="sd-modal-account">Accéder à mon compte</button>
+        <button type="button" class="sd-btn sd-btn--outline-dark" id="sd-modal-close-secondary">J'ai compris</button>
+      </div>
+    </div>
+  </div>
 
 </div><!-- /sd-root -->
 
@@ -735,6 +839,7 @@ var BUNDLE_URL = {{ s.bundle_url | default: '' | json }};
 var COACHING_URL = {{ s.coaching_url | default: '' | json }};
 var ACCOUNT_URL = 'https://shopify.com/95330024010/account';
 var CREATE_CUSTOMER_API_URL = 'https://shema-nine.vercel.app/api/create-customer';
+var DIAGNOSTIC_LOCKED = {{ shema_diagnostic_locked | json }};
 var TEXTURE_IMAGES = {
   A: {% if s.q10_bouclee_image %}{{ s.q10_bouclee_image | image_url: width: 400 | json }}{% else %}null{% endif %},
   B: {% if s.q10_frisee_image %}{{ s.q10_frisee_image | image_url: width: 400 | json }}{% else %}null{% endif %},
@@ -746,28 +851,18 @@ var W={hair_type:0,water_absorption:.25,drying_speed:.20,moisture_retention:.20,
 var SF=50;
 
 var B1=[
-  {id:'Q10',v:'hair_type',t:'Choisir son type de cheveux...',sub:'Quelle est ta texture capillaire ?',o:[{k:'A',l:'Bouclée',s:0,img:TEXTURE_IMAGES.A},{k:'B',l:'Frisée',s:0,img:TEXTURE_IMAGES.B},{k:'C',l:'Crépue',s:0,img:TEXTURE_IMAGES.C},{k:'D',l:'Lisse',s:0,img:TEXTURE_IMAGES.D}]},
-  {id:'Q1',v:'water_absorption',t:'Quand tu mouilles tes cheveux…',o:[{k:'A',l:"Ils absorbent l'eau immédiatement",s:2},{k:'B',l:"L'eau met quelques secondes",s:0},{k:'C',l:"L'eau reste en surface / perle",s:-2}]},
-  {id:'Q2',v:'drying_speed',t:'Après lavage, sans aucun produit…',o:[{k:'A',l:"Sèchent très vite",s:2},{k:'B',l:'Sèchent en quelques heures',s:0},{k:'C',l:'Mettent très longtemps à sécher',s:-2}]},
-  {id:'Q3',v:'moisture_retention',t:'Après avoir hydraté tes cheveux…',o:[{k:'A',l:'Restent hydratés plusieurs jours',s:2},{k:'B',l:'Restent hydratés environ 1 jour',s:0},{k:'C',l:'Deviennent secs très rapidement',s:-2}]},
-  {id:'Q4',v:'product_absorption',t:'Quand tu appliques un produit sur tes cheveux…',o:[{k:'A',l:'Il est absorbé rapidement',s:2},{k:'B',l:'Il reste légèrement en surface',s:0},{k:'C',l:'Il reste en surface / laisse des résidus',s:-2}]},
-  {id:'Q5',v:'buildup',t:'Après plusieurs applications de produits…',o:[{k:'A',l:'Mes cheveux restent légers',s:2},{k:'B',l:'Deviennent un peu lourds',s:0},{k:'C',l:'Deviennent gras ou collants',s:-2}]},
-  {id:'Q6',v:'humidity',t:'Par temps humide ou sous la pluie…',o:[{k:'A',l:'Mes cheveux gonflent rapidement',s:2},{k:'B',l:'Peu de changement visible',s:0},{k:'C',l:'Restent inchangés / rigides',s:-2}]},
-  {id:'Q7',v:'texture',t:'En passant les doigts sur tes cheveux secs…',o:[{k:'A',l:'Rugueux / rêches',s:2},{k:'B',l:'Normaux',s:0},{k:'C',l:'Doux / lisses',s:-2}]},
-  {id:'Q8',v:'elasticity',t:'Quand tu etires ton cheveux',sub:'Prends un cheveu entre tes doigts et tire doucement',o:[{k:'A',l:'Il casse immédiatement',s:2},{k:'B',l:"Il s'étire un peu puis casse",s:0},{k:'C',l:"Il s'étire et revient à sa forme",s:-2}]}
+  {id:'Q10',v:'hair_type',t:'[[firstName]], choisis ton type de cheveux',sub:'Quelle est ta texture capillaire, [[firstName]] ?',o:[{k:'A',l:'Bouclée',s:0,img:TEXTURE_IMAGES.A},{k:'B',l:'Frisée',s:0,img:TEXTURE_IMAGES.B},{k:'C',l:'Crépue',s:0,img:TEXTURE_IMAGES.C},{k:'D',l:'Lisse',s:0,img:TEXTURE_IMAGES.D}]},
+  {id:'Q1',v:'water_absorption',t:'[[firstName]], quand tu mouilles tes cheveux…',o:[{k:'A',l:"Ils absorbent l'eau immédiatement",s:2},{k:'B',l:"L'eau met quelques secondes",s:0},{k:'C',l:"L'eau reste en surface / perle",s:-2}]},
+  {id:'Q2',v:'drying_speed',t:'Après lavage, sans aucun produit, tes cheveux…',sub:'Que remarques-tu, [[firstName]] ?',o:[{k:'A',l:"Sèchent très vite",s:2},{k:'B',l:'Sèchent en quelques heures',s:0},{k:'C',l:'Mettent très longtemps à sécher',s:-2}]},
+  {id:'Q3',v:'moisture_retention',t:'Après avoir hydraté tes cheveux…',sub:'Comment évoluent-ils, [[firstName]] ?',o:[{k:'A',l:'Ils restent hydratés plusieurs jours',s:2},{k:'B',l:'Ils restent hydratés environ 1 jour',s:0},{k:'C',l:'Ils deviennent secs très rapidement',s:-2}]},
+  {id:'Q4',v:'product_absorption',t:'[[firstName]], quand tu appliques un produit sur tes cheveux…',o:[{k:'A',l:'Il est absorbé rapidement',s:2},{k:'B',l:'Il reste légèrement en surface',s:0},{k:'C',l:'Il reste en surface / laisse des résidus',s:-2}]},
+  {id:'Q5',v:'buildup',t:'[[firstName]], après plusieurs applications de produits…',o:[{k:'A',l:'Mes cheveux restent légers',s:2},{k:'B',l:'Deviennent un peu lourds',s:0},{k:'C',l:'Deviennent gras ou collants',s:-2}]},
+  {id:'Q6',v:'humidity',t:'[[firstName]], par temps humide ou sous la pluie…',o:[{k:'A',l:'Mes cheveux gonflent rapidement',s:2},{k:'B',l:'Peu de changement visible',s:0},{k:'C',l:'Restent inchangés / rigides',s:-2}]},
+  {id:'Q7',v:'texture',t:'[[firstName]], en passant les doigts sur tes cheveux secs…',o:[{k:'A',l:'Rugueux / rêches',s:2},{k:'B',l:'Normaux',s:0},{k:'C',l:'Doux / lisses',s:-2}]},
+  {id:'Q8',v:'elasticity',t:'[[firstName]], quand tu étires un cheveu…',sub:'Prends un cheveu entre tes doigts et tire doucement',o:[{k:'A',l:'Il casse immédiatement',s:2},{k:'B',l:"Il s'étire un peu puis casse",s:0},{k:'C',l:"Il s'étire et revient à sa forme",s:-2}]}
 ];
 
-var Q9={id:'Q9',t:'Quelles sont tes 2 principales problématiques ?',sub:"Sélectionne jusqu'à 2 réponses",multi:true,max:2,o:[{k:'A',l:'Casse',s:0},{k:'B',l:'Pousse',s:0},{k:'C',l:'Alopécie',s:0},{k:'D',l:'Cuir chevelu sec ou irrité',s:0},{k:'E',l:'Cheveux secs',s:0}]};
-
-var REFS=[
-  {id:'R1',ref:true,conflict:'absorption_retention',t:'Après 24h sans appliquer de produit…',o:[{k:'A',l:'Mes cheveux sont secs',s:-.05},{k:'B',l:'Encore souples',s:.05}]},
-  {id:'R2',ref:true,conflict:'absorption_buildup',t:"Juste après l'application d'un produit, tu vois une couche visible ?",o:[{k:'A',l:'Non, le produit disparaît',s:-.05},{k:'B',l:'Oui, ça reste visible',s:.05}]},
-  {id:'R3',ref:true,conflict:'hydration_dryness',t:'Quand tu fais un soin, tu commences par…',o:[{k:'A',l:"Eau ou spray hydratant d'abord",s:-.05},{k:'B',l:"Huile ou beurre d'abord",s:.05}]},
-  {id:'R4',ref:true,conflict:'humidity_contradictory',t:'Sous la pluie ou dans un air très humide…',o:[{k:'A',l:'Mes cheveux gonflent clairement',s:-.05},{k:'B',l:'Rien de notable',s:.05}]},
-  {id:'R5',ref:true,conflict:'dryness_scalp',t:'Comment est ton cuir chevelu la plupart du temps ?',o:[{k:'A',l:'Gras',s:.05},{k:'B',l:'Normal',s:0},{k:'C',l:'Sec',s:-.05}]},
-  {id:'R6',ref:true,conflict:'breakage_elasticity',t:'En tirant un cheveu mouillé…',o:[{k:'A',l:'Il casse',s:-.05},{k:'B',l:"Il s'étire",s:0},{k:'C',l:'Il revient',s:.05}]},
-  {id:'R7',ref:true,conflict:'washing_dryness',t:'Après lavage…',o:[{k:'A',l:'Mes cheveux sont doux',s:.05},{k:'B',l:'Mes cheveux sont secs',s:-.05}]}
-];
+var Q9={id:'Q9',t:'[[firstName]], quelles sont tes 2 principales problématiques ?',sub:"Sélectionne jusqu'à 2 réponses",multi:true,max:2,o:[{k:'A',l:'Casse',s:0},{k:'B',l:'Pousse',s:0},{k:'C',l:'Alopécie',s:0},{k:'D',l:'Cuir chevelu sec ou irrité',s:0},{k:'E',l:'Cheveux secs',s:0}]};
 
 var PROFILES={
   haute:{
@@ -798,59 +893,13 @@ var PROFILES={
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
 var ans={}, qlist=[], idx=0;
-var REF_PRIORITIES=['absorption_retention','absorption_buildup','hydration_dryness','humidity_contradictory','dryness_scalp','breakage_elasticity','washing_dryness'];
-
-function getAnswerScore(q){
-  var a=ans[q.id]; if(!a) return null;
-  var opt=q.o.find(function(o){return o.k===a;});
-  return opt ? opt.s : null;
-}
-
-function getConflictKeys(){
-  var q1=ans.Q1;
-  var q2=ans.Q2;
-  var q3=ans.Q3;
-  var q4=ans.Q4;
-  var q5=ans.Q5;
-  var q6=ans.Q6;
-  var q8=ans.Q8;
-  var concerns=Array.isArray(ans.Q9)?ans.Q9:[];
-  var keys=[];
-
-  if(q1==='A'&&q3==='A') keys.push('absorption_retention');
-  if(q4==='A'&&q5==='C') keys.push('absorption_buildup');
-  if(q3==='C'&&concerns.indexOf('E')>-1) keys.push('hydration_dryness');
-  if((q6==='A'&&q1==='C')||(q6==='C'&&q1==='A')) keys.push('humidity_contradictory');
-  if(concerns.indexOf('E')>-1) keys.push('dryness_scalp');
-  if(concerns.indexOf('A')>-1&&q8&&q8!=='A') keys.push('breakage_elasticity');
-  if(q2==='A'&&q3==='C') keys.push('washing_dryness');
-
-  return keys.filter(function(key, index){ return keys.indexOf(key)===index; });
-}
-
-function getRefQuestions(){
-  var conflicts=getConflictKeys();
-  if(!conflicts.length) return [];
-
-  var neu=B1.filter(function(q){return q.v!=='hair_type'&&ans[q.id]==='B';}).length;
-  var rel=Math.max(0,100-conflicts.length*10-neu*5);
-  if(rel>=60) return [];
-
-  var ordered=REF_PRIORITIES.filter(function(key){ return conflicts.indexOf(key)>-1; });
-  if(ordered.length===1){
-    var fallback=REF_PRIORITIES.find(function(key){ return key!==ordered[0]; });
-    if(fallback) ordered.push(fallback);
-  }
-
-  return ordered.slice(0,4).map(function(key){
-    return REFS.find(function(ref){ return ref.conflict===key; });
-  }).filter(Boolean);
-}
 
 // ── SCREENS ───────────────────────────────────────────────────────────────────
 function showScreen(id){
-  document.getElementById('sd-landing').style.display = id==='landing' ? '' : 'none';
+  document.getElementById('sd-gate').classList.toggle('active', id==='landing' && DIAGNOSTIC_LOCKED);
+  document.getElementById('sd-landing').style.display = id==='landing' && !DIAGNOSTIC_LOCKED ? '' : 'none';
   document.getElementById('sd-capture').classList.toggle('active', id==='capture');
+  document.getElementById('sd-email-capture').classList.toggle('active', id==='email');
   document.getElementById('sd-quiz').classList.toggle('active', id==='quiz');
   document.getElementById('sd-loading').classList.toggle('active', id==='loading');
   document.getElementById('sd-results').classList.toggle('active', id==='results');
@@ -859,8 +908,15 @@ function showScreen(id){
 
 // ── BUILD LIST ────────────────────────────────────────────────────────────────
 function buildList(){
-  var refs=getRefQuestions();
-  qlist=B1.concat([Q9]).concat(refs);
+  qlist=B1.concat([Q9]);
+}
+
+function personalize(text){
+  var firstName=document.getElementById('sd-firstname').value.trim();
+  var safeFirstName=firstName.replace(/[&<>"']/g,function(character){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[character];
+  });
+  return text.replace(/\[\[firstName\]\]/g, safeFirstName);
 }
 
 // ── RENDER QUESTION ───────────────────────────────────────────────────────────
@@ -875,9 +931,6 @@ function renderQ(){
   var sel=ans[q.id];
   var isMulti=!!q.multi;
   var isLast=idx===qlist.length-1;
-
-  var refHtml=q.ref?'<div class="sd-quiz__ref-note">⚡ Question d\'affinage — ajoutée pour préciser votre diagnostic</div>':'';
-  var subHtml=q.sub?'<p class="sd-quiz__subtitle">'+q.sub+'</p>':'';
 
   var optsHtml=q.o.map(function(opt){
     var isSel=isMulti?(Array.isArray(sel)&&sel.indexOf(opt.k)>-1):sel===opt.k;
@@ -895,10 +948,9 @@ function renderQ(){
   var nextTxt=isLast?'Voir mes résultats →':'Question suivante →';
 
   var card=document.getElementById('sd-qcard');
-  card.innerHTML=refHtml
-    +'<div class="sd-quiz__qnum'+(q.ref?' sd-quiz__qnum--ref':'')+'">'+q.id+'</div>'
-    +'<h2 class="sd-quiz__question">'+q.t+'</h2>'
-    +subHtml
+  card.innerHTML='<div class="sd-quiz__qnum">'+q.id+'</div>'
+    +'<h2 class="sd-quiz__question">'+personalize(q.t)+'</h2>'
+    +(q.sub?'<p class="sd-quiz__subtitle">'+personalize(q.sub)+'</p>':'')
     +'<div class="sd-quiz__options">'+optsHtml+'</div>'
     +'<div class="sd-quiz__nav">'
     +(idx>0?'<button class="sd-quiz__back" id="sd-back">← Retour</button>':'<span></span>')
@@ -923,7 +975,7 @@ function renderQ(){
 
   var nb=document.getElementById('sd-next');
   if(nb) nb.addEventListener('click',function(){
-    if(isLast){showResults();return;}
+    if(isLast){showScreen('email');return;}
     idx++;renderQ();
   });
   var bb=document.getElementById('sd-back');
@@ -938,16 +990,10 @@ function compute(){
     var opt=q.o.find(function(o){return o.k===a;}); if(!opt) return;
     raw+=opt.s*W[q.v];
   });
-  getRefQuestions().forEach(function(q){
-    var a=ans[q.id]; if(!a) return;
-    var opt=q.o.find(function(o){return o.k===a;}); if(!opt) return;
-    raw+=opt.s;
-  });
   var norm=Math.round(raw*SF);
   var cl=Math.max(-100,Math.min(100,norm));
-  var conf=getConflictKeys().length;
   var neu=B1.filter(function(q){return q.v!=='hair_type'&&ans[q.id]==='B';}).length;
-  var rel=Math.max(0,100-conf*10-neu*5);
+  var rel=Math.max(0,100-neu*5);
   var profileKey='moyenne';
   if(cl<0){ profileKey = cl<=-30 ? 'haute' : 'moyenne'; }
   else if(cl>0){ profileKey = cl>=30 ? 'faible' : 'moyenne'; }
@@ -955,7 +1001,7 @@ function compute(){
 }
 
 // ── SAVE PROFILE ───────────────────────────────────────────────────────────
-async function saveProfile(firstName, email, result, profile) {
+async function saveProfile(firstName, lastName, email, result) {
   var bucket = result.cl > 30 ? 'haute_elevee'
              : result.cl > 0  ? 'haute_mixte'
              : result.cl > -30 ? 'faible_mixte'
@@ -983,6 +1029,7 @@ async function saveProfile(firstName, email, result, profile) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         firstName: firstName,
+        lastName: lastName,
         email: email,
         tags: tags
       })
@@ -998,12 +1045,13 @@ async function saveProfile(firstName, email, result, profile) {
 }
 
 // ── SHOW RESULTS ──────────────────────────────────────────────────────────────
-function showResults(){
+function showResults(shouldSave){
   showScreen('loading');
   window.setTimeout(function(){
     var r=compute();
     var p=PROFILES[r.profileKey];
     var firstName=document.getElementById('sd-firstname').value.trim();
+    var lastName=document.getElementById('sd-lastname').value.trim();
     var email=document.getElementById('sd-email').value.trim();
     var tMap={A:'Bouclée',B:'Frisée',C:'Crépue',D:'Lisse'};
     var cMap={A:'Casse',B:'Pousse',C:'Alopécie',D:'Cuir chevelu sec ou irrité',E:'Cheveux secs'};
@@ -1027,8 +1075,24 @@ function showResults(){
     document.getElementById('r-bundle-name').textContent=p.bundle;
     document.getElementById('r-bundle-products').textContent=p.products;
 
-    saveProfile(firstName, email, r, p).catch(function(){});
+    var identityButton=document.getElementById('r-identity-btn');
+    var accountTitle=document.getElementById('r-account-title');
+    var accountDesc=document.getElementById('r-account-desc');
+    var accountNote=document.getElementById('r-account-note');
+    if(shouldSave){
+      identityButton.style.display='';
+      accountTitle.textContent='Votre espace SHEMA est presque prêt';
+      accountDesc.textContent="Votre compte a bien été créé. Pour accéder à votre espace personnel, vous devez maintenant valider votre compte depuis l'email qui vient de vous être envoyé.";
+      accountNote.style.display='';
+      saveProfile(firstName, lastName, email, r).catch(function(){});
+    } else {
+      identityButton.style.display='none';
+      accountTitle.textContent='Ton diagnostic est disponible';
+      accountDesc.textContent="Aucune information n'a été enregistrée. Tu peux consulter ton diagnostic librement sur cette page.";
+      accountNote.style.display='none';
+    }
     showScreen('results');
+    initResultsReveal();
   }, 1500);
 }
 
@@ -1044,18 +1108,55 @@ function goCoaching(){
 function goAccount(){
   window.location.href=ACCOUNT_URL;
 }
+function openIdentityModal(){
+  var modal=document.getElementById('sd-identity-modal');
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden','false');
+}
+function closeIdentityModal(){
+  var modal=document.getElementById('sd-identity-modal');
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden','true');
+}
+function initResultsReveal(){
+  var items=document.querySelectorAll('#sd-results .sd-scroll-reveal');
+  if(!items.length) return;
+
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)){
+    items.forEach(function(item){ item.classList.add('is-visible'); });
+    return;
+  }
+
+  items.forEach(function(item){ item.classList.remove('is-visible'); });
+
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+
+  items.forEach(function(item){
+    if(item.style.display==='none') return;
+    observer.observe(item);
+  });
+}
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 showScreen('landing');
 
 document.getElementById('sd-hero-cta').addEventListener('click',function(){showScreen('capture');});
 document.getElementById('sd-cta-bottom').addEventListener('click',function(){showScreen('capture');});
+document.getElementById('sd-gate-identity').addEventListener('click', goAccount);
+document.getElementById('sd-gate-account').addEventListener('click', goAccount);
 
 document.getElementById('sd-capture-next').addEventListener('click',function(){
+  var ln=document.getElementById('sd-lastname').value.trim();
   var fn=document.getElementById('sd-firstname').value.trim();
-  var em=document.getElementById('sd-email').value.trim();
-  if(!fn||!em||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){
-    alert('Veuillez renseigner votre prénom et un email valide.');
+  if(!ln||!fn){
+    alert('Veuillez renseigner votre nom et votre prénom.');
     return;
   }
   ans={};idx=0;
@@ -1063,13 +1164,34 @@ document.getElementById('sd-capture-next').addEventListener('click',function(){
   renderQ();
 });
 
+document.getElementById('sd-email-next').addEventListener('click',function(){
+  var email=document.getElementById('sd-email').value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    alert('Veuillez renseigner une adresse email valide.');
+    return;
+  }
+  showResults(true);
+});
+
+document.getElementById('sd-email-skip').addEventListener('click',function(){
+  document.getElementById('sd-email').value='';
+  showResults(false);
+});
+
 document.getElementById('r-bundle-btn').addEventListener('click', goBundle);
 document.getElementById('r-cta-routine').addEventListener('click', goBundle);
-document.getElementById('r-cta-account').addEventListener('click', goAccount);
 document.getElementById('r-cta-coaching').addEventListener('click', goCoaching);
+document.getElementById('r-identity-btn').addEventListener('click', openIdentityModal);
+document.getElementById('sd-modal-account').addEventListener('click', goAccount);
+document.getElementById('sd-modal-close').addEventListener('click', closeIdentityModal);
+document.getElementById('sd-modal-close-secondary').addEventListener('click', closeIdentityModal);
+document.querySelectorAll('[data-close-modal]').forEach(function(el){
+  el.addEventListener('click', closeIdentityModal);
+});
 
 document.getElementById('r-restart').addEventListener('click',function(){
   ans={};idx=0;
+  document.getElementById('sd-lastname').value='';
   document.getElementById('sd-firstname').value='';
   document.getElementById('sd-email').value='';
   showScreen('landing');
@@ -1112,7 +1234,7 @@ document.getElementById('r-restart').addEventListener('click',function(){
     { "type": "text", "id": "steps_label", "label": "Label", "default": "Comment ça fonctionne" },
     { "type": "text", "id": "steps_title", "label": "Titre", "default": "Un processus simple en 4 étapes" },
     { "type": "text", "id": "step1_title", "label": "Étape 1 — Titre", "default": "Vos informations" },
-    { "type": "textarea", "id": "step1_desc", "label": "Étape 1 — Description", "default": "Renseignez votre prénom et votre email pour recevoir vos résultats." },
+    { "type": "textarea", "id": "step1_desc", "label": "Étape 1 — Description", "default": "Renseignez votre nom et votre prénom pour commencer votre diagnostic personnalisé." },
     { "type": "text", "id": "step2_title", "label": "Étape 2 — Titre", "default": "Le questionnaire" },
     { "type": "textarea", "id": "step2_desc", "label": "Étape 2 — Description", "default": "Répondez à 10 questions sur le comportement de vos cheveux au quotidien." },
     { "type": "text", "id": "step3_title", "label": "Étape 3 — Titre", "default": "L'analyse" },
@@ -1145,7 +1267,7 @@ document.getElementById('r-restart').addEventListener('click',function(){
     { "type": "text", "id": "faq1_q", "label": "FAQ 1 — Question", "default": "Le diagnostic est-il vraiment gratuit ?" },
     { "type": "textarea", "id": "faq1_a", "label": "FAQ 1 — Réponse", "default": "Oui, le diagnostic complet est entièrement gratuit. Vous obtenez votre profil de porosité, vos recommandations basiques et votre calendrier de routine sans aucun achat. La routine détaillée est débloquée après l'achat du bundle recommandé." },
     { "type": "text", "id": "faq2_q", "label": "FAQ 2 — Question", "default": "Combien de temps dure le diagnostic ?" },
-    { "type": "textarea", "id": "faq2_a", "label": "FAQ 2 — Réponse", "default": "Le diagnostic prend environ 5 minutes. Il comprend 10 questions obligatoires sur le comportement de vos cheveux, plus quelques questions d'affinage si des contradictions sont détectées dans vos réponses." },
+    { "type": "textarea", "id": "faq2_a", "label": "FAQ 2 — Réponse", "default": "Le diagnostic prend environ 5 minutes. Il comprend 10 questions sur le comportement de vos cheveux." },
     { "type": "text", "id": "faq3_q", "label": "FAQ 3 — Question", "default": "Comment sont calculés les résultats ?" },
     { "type": "textarea", "id": "faq3_a", "label": "FAQ 3 — Réponse", "default": "Vos réponses sont analysées selon 8 variables capillaires pondérées : absorption de l'eau, vitesse de séchage, rétention d'hydratation, absorption des produits, accumulation de résidus, réaction à l'humidité, texture et élasticité." },
     { "type": "text", "id": "faq4_q", "label": "FAQ 4 — Question", "default": "Puis-je refaire le diagnostic plus tard ?" },
